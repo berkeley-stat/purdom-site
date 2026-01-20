@@ -1,0 +1,52 @@
+---
+title: "Publications"
+# Following guide for multiple bibliographies at: https://www.andrewheiss.com/blog/2023/12/11/separate-bibliographies-quarto/index.html
+
+# Use the multibib extension
+filters:
+  - multibib
+  
+# Turn off YAML validation -- needed for multiple bibliographies
+# Otherwise Quarto gives errors
+validate-yaml: false
+
+bibliography:
+  method: methodology.bib
+  collaborative: collaborative.bib
+  book: book.bib
+
+csl: nature-publishing-group-vancouver-descend-nonumb-forweb.csl
+
+nocite: |
+  @*
+---
+
+[Google Scholar Profile](https://scholar.google.com/citations?hl=en&user=WGgu4SAAAAAJ&view_op=list_works&nbsp)
+
+## Bioinformatic and Statistical Methodology
+
+::: {#refs-method}
+:::
+
+## Applied and Collaborative
+
+::: {#refs-collaborative}
+:::
+
+## Books/Reviews
+
+::: {#refs-book}
+:::
+
+## Related Software
+
+-   Cobolt: Joint analysis of multimodal single-cell sequencing data (python package available on <a href=https://github.com/boyinggong/cobolt>Github</a>)
+-   moanin: An R Package for Time Course RNASeq Data Analysis\
+    (available on <a href=https://www.bioconductor.org/packages/devel/bioc/html/moanin.html>Bioconductor</a>)
+-   mbkmeans: Mini-batch K-means Clustering for Single-Cell RNA-seq (available on <a href=https://www.bioconductor.org/packages/release/bioc/html/mbkmeans.html>Bioconductor</a>)
+-   Dune: Improving replicability in single-cell RNA-Seq cell type discovery (available on <a href=https://www.bioconductor.org/packages/release/bioc/html/Dune.html>Bioconductor</a>)
+-   methCP: An R package for Differentially Methylated Region Detection by Boying Gong (available on <a href=https://boyinggong.github.io/methcp/>Github</a>)
+-   Slingshot: Lineage Inference for Single-cell Data by Kelly Street (available on <a href=https://www.bioconductor.org/packages/release/bioc/html/slingshot.html>Bioconductor</a>)
+-   clusterExperiment : a package for clustering of single-cell sequencing data and other high-throughput experiments with large numbers of samples by Elizabeth Purdom and Davide Risso (Available as a bioconductor package and also available on <a href=www.github.com/epurdom/clusterExperiment>github</a>)
+-   DoubleExpSeq: Differential Exon Usage Test for RNA-Seq data via Empirical Bayes Shrinkage of the Dispersion Parameter by Sean Ruddy (R package, available on <a href=http://cran.r-project.org>CRAN</a>) \* cancerTiming: Estimation of temporal ordering of cancer abnormalities. by Elizabeth Purdom (R package, available on <a href=http://cran.r-project.org>CRAN</a> and <a href=https://github.com/epurdom/cancerTiming>GitHub</a> )
+-   FIRMA available in the R package aroma.affymetrix, by Elizabeth Purdom (available on <a href=www.aroma-project.org>www.aroma-project.org</a>)
