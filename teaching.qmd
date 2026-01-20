@@ -1,0 +1,35 @@
+---
+title: "Teaching"
+---
+
+Below are courses I have taught at UC Berkeley and links to their syllabi
+
+## Undergraduate Courses
+
+-   Stat 131A: Statistical Methods for Data Science\
+Information and materials can be found [here ](https://epurdom.github.io/Stat131A/)
+    - Spring 2023
+    - Fall 2019
+    - Spring 2017
+-   Stat 158: Design and Analysis of Experiments
+    -   [Spring 2015](Syllabi/Stat158/Syllabus2015Spring.pdf)
+    -   [Fall 2013](Syllabi/Stat158/Syllabus2013Fall.pdf)
+    -   [Spring 2013](Syllabi/Stat158/Syllabus2013Spring.pdf)
+-   Stat 152: Sampling Surveys
+    -   Spring 2019
+    -   [Spring 2014](Syllabi/Stat152/Syllabus2014Spring.pdf)
+    -   [Spring 2011](Syllabi/Stat152/spring2011Syllabus.pdf)
+    -   [Spring 2014](Syllabi/Stat151A/Syllabus2014Spring.pdf)
+
+## Graduate Level Courses
+
+-   Stat 201B
+    - Fall 2024
+    - Fall 2023
+    - Fall 2020
+-   Stat 215B: Statistical Models: Theory and Application
+    -   [Spring 2022](https://bcourses.berkeley.edu/courses/1512498/assignments/syllabus)
+    -   [Spring 2022](https://bcourses.berkeley.edu/courses/1502854/assignments/syllabus)
+    -   Spring 2020
+    -   [Spring 2011](Syllabi/Stat215B/Spring2011.pdf)
+    -   [Spring 2010](Syllabi/Stat215B/Spring2010.pdf)

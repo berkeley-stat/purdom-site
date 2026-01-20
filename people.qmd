@@ -1,0 +1,35 @@
+---
+title: "Purdom Group"
+---
+
+## Joining My Group
+
+-   If you are a *graduate student at UC Berkeley* interested in joining my research group or attending my group meetings, please feel free to contact me.
+-   If you are a prospective student, I do not admit students directly into my lab, and you should contact the PhD admissions
+-   [Tips and guidelines for computing practices in my group](computingGuidePages/computingGuide.qmd)
+
+## Current Graduate Students and Post-Docs
+
+-   [Florica Constantine](https://statistics.berkeley.edu/people/florica-constantine)
+-   [Lucas Etourneau](https://lucas-et.github.io/)
+-   [Van Hovenga](https://statistics.berkeley.edu/people/van-hovenga)
+-   Keying (Maggie) Kuang
+-   [Nicolas Sanchez](https://statistics.berkeley.edu/people/nicolas-sanchez)
+-   [Zhiwei Xiao](https://zhiweixiao.github.io/)
+
+## Former Students
+
+-   [William Torous](https://www.williamtorous.com)
+-   Yilong Hao (MA, 2024)
+-   Hao Wang (PhD, 2024) Thesis: "Application of statistical methods to patient level analysis on Single Cell RNA-Seq data"
+-   Boying Gong (PhD, 2021) Thesis: "Statistical Analysis and Integration of Multi-modal Sequencing Data"
+-   Stephanie DeGraaf (PhD, 2020) Thesis: "Time-Course Analysis and Clustering of Gene Expression Data"
+-   Namita Trikannad (MA)
+-   Marla Johnson (PhD, 2017) Thesis: "Clustering of mRNA-Seq Data for Detection of Alternative Splicing Patterns"
+-   Christine Ho (PhD, 2016) Thesis: "Statistical modeling and analysis for biomedical applications"
+-   Sean Ruddy (PhD, 2014) Thesis: "Shrinkage of dispersion parameters in the double exponential family of distributions, with applications to genomic sequencing"
+
+## Former Post-Docs
+
+-   [Nelle Varoquaux](https://nellev.github.io)
+-   Sean Ruddy

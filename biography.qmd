@@ -1,0 +1,28 @@
+---
+title: "Abbreviated CV"
+---
+
+[Full CV as of July 2024 (pdf)](CVs/cv_2024_07_19_FullReview.pdf)
+
+## Post-Graduate Employment
+
+-   Associate Professor Department of Statistics, UC, Berkeley, CA Jul 2016 - Present
+-   Assistant Professor Department of Statistics, UC, Berkeley, CA Jul 2009- Jun 2016
+-   NSF Post-Doctoral Fellow in Biological Informatics Division of Biostatistics, UC, Berkeley, CA Mar 2007- Jul 2009
+-   Post-Doctoral Scholar Mathematical Sciences Research Institute, Berkeley, CA Sept 2006- Feb 2007
+
+## Grants and Honors
+
+-   [CZ Biohub Investigator](https://statistics.berkeley.edu/about/news/elizabeth-purdom-named-chan-zuckerberg-biohub-investigator)
+-   Hellman Family Faculty Award
+-   NSF Post-Doctoral Fellow in Biological Informatics
+-   Gabilan Stanford Graduate Fellowship in Science and Engineering (Stanford University)
+-   Wrexham Prize for the best senior essay in the field of Humanities (Yale University)
+-   John Addison Porter Prize in American History (Department of History, Yale University)
+
+## Education
+
+-   Ph.D., Statistics Stanford University, Stanford, CA Advisor: Susan Holmes Thesis Title: Multivariate Kernel Methods in the Analysis of Graphical Structures
+
+-   B.S. Applied Mathematics and History (Double Major) Yale University, New Haven, CT Summa Cum Laude Distinction in the major of Applied Mathematics, concentration in Statistics Distinction in the major of History
+

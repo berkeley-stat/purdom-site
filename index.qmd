@@ -1,0 +1,35 @@
+---
+title-block: false
+engine: knitr
+format:
+  html:
+    css: styles.css
+---
+
+::::: columns
+::: {.column width="40%"}
+![](images/PurdomCoast_square.jpeg){fig-alt="Photo of Elizabeth Purdom"}
+:::
+
+::: {.column width="60%"}
+## Elizabeth Purdom
+
+Associate Professor\
+[Department of Statistics](https://statistics.berkeley.edu)\
+[Center for Computational Biology](https://ccb.berkeley.edu/)\
+UC, Berkeley
+
+## Contact
+
+Address: 367 Evans Hall #3860, Berkeley, CA 94720\
+Phone: 510-642-6154\
+Fax: 510-642-7892\
+Email: [epurdom\@stat.berkeley.edu](mailto:epurdom@stat.berkeley.edu)
+:::
+:::::
+
+## About me
+
+I am a faculty of UC, Berkeley in the Department of Statistics and the Center for Computational Biology. I received my PhD in Statistics from Stanford University in 2006 under the guidence of Susan Holmes for work on multivariate kernel methods in the analysis of graphical structures found in biology, such as gene networks or phylogenetic trees. I was then awarded a NSF Bioinformatics post-doctoral fellowship where I researched methods for transcriptomic platforms and cancer genomics under the guidence of Terry Speed in the Department of Statistics at UC Berkeley. In 2009, I became a faculty member in the Department of Statistics of UC Berkeley.
+
+Research in the my group focuses on developing and applying methodologies to solve statistical problems that arise in 'omics applications, particularly in the area of single-cell and spatial transcriptomic studies. 

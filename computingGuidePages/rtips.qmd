@@ -1,0 +1,53 @@
+---
+title: "R Tutorials and Help"
+---
+
+## General Useful Information
+
+* <a href="RStuff/RCommands/index.html">Summary of Useful R commands</a> by
+                        Elizabeth Purdom. Also limited version in <a href="RStuff/RNotes.pdf">pdf</a>.
+* <A HREF="RStuff/Saving/Saving.html"> Saving/Moving R Objects; Libraries </A> by
+                        Elizabeth Purdom
+* <A HREF="RStuff/WritingFunctions.html">Writing Functions</a> by Elizabeth Purdom
+                        (Rmarkdown available <a href="RStuff/WritingFunction.Rmd">here</a>)
+* <A HREF="RStuff/UsefulRpages.html">Other useful webpages</a>
+                    
+## Writing A Package
+I strongly suggest you look at the tools available in `devtools` and RStudio
+                        and that you use Roxygen for writing your documentation files.
+                        
+* <a
+                            href="http://thepoliticalmethodologist.com/2014/08/14/building-and-maintaining-r-packages-with-devtools-and-roxygen2/">Building
+                            and Maintaining R Packages with devtools and roxygen2</ahref>
+* <a
+                            href=https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio>Developing
+                            Packages with RStudio</a>
+* <a href=http://r-pkgs.had.co.nz />R Packages by Hadley Wickham</a>
+
+## Coding Tips
+
+* <a href=http://www.noamross.net/blog/2013/4/25/faster-talk.html> FasteR! HigheR! StrongeR! - A
+                            Guide to Speeding Up R Code for Busy People</a>
+
+## Specific Teaching Labs (created for various courses)
+
+* Introduction Labs
+    - <A HREF="RStuff/RLabShort/index.html"> Short Version</A>--Barebones of R
+                            objects, Plotting, etc.
+    - <A HREF="RStuff/RLabAdv/index.html"> More Advanced</A> -- Includes
+                            information regarding writing functions, more about R objects
+    - <A HREF="RStuff/BrownLab/index.html"> Most Complete</A> (except for
+                            exercises!)
+                            -- More advanced plotting examples and techniques, basic statistical techniques
+* <A HREF="RStuff/314introR.htm">
+                            Introduction to R/SPLUS; Bootstrap Calculations; Programming &
+                            Debugging </a>by Noureddine El Karoui and Pei Wang
+* <A HREF="RStuff/freqnote.htm"> A Note on Frequency
+                            Tables</A> by Elizabeth Purdom
+* <A HREF="RStuff/RLab2/index.html">Probability Calculations</A> by Debashis Paul
+                        and updated by Elizabeth Purdom
+* <A HREF="RStuff/RLab3/index.html">Test/Power Calculations</A> by Debashis Paul
+                        and updated by Claire Lunch 
+* <A HREF="RStuff/RLab4/RLab4.html"> ANOVA </A> by Elizabeth Purdom 
+* <A HREF="RStuff/RLAB5/RLAB5.html"> Regression </A> by Debashis Paul and Elizabeth
+                        Purdom 

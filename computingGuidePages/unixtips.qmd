@@ -1,0 +1,20 @@
+---
+title: "Unix"
+---
+You will have to do a lot of work on the servers and will need to figure out unix commands. A few useful
+                things to learn
+
+* `screen`: This allows you to do multiple 'windows' on unix. If you are running R
+                            interactively, you probably want to do it via screen, because it allows you to exit the R
+                            session, go back to the unix terminal, and then re-enter R -- and from any connection. You
+                            can log-off at the department and log-back on at home and still re-enter your R session.
+                            However, the rule above still applied. Don't keep a R session running longer than a day
+                            without really good reason. </p>
+* makefiles: This is very useful for automating a series of steps. For example, I always
+                            create a make file that will compile my knitr file or latex file. For extensive simulations
+                            or processing of data, especially that have dependencies (if file X updates, you need to
+                            rerun command A, but otherwise don't), you can code in the dependencies in makefile, and
+                            make will only rerun if neeed. Knitr caching does this to some degree, but I find it much
+                            trickier -- I always wind up 'forcing' it to rerun something or being frustrated that it
+                            reran something I didn't think changed. [Snakemake](https://snakemake.readthedocs.io/en/stable/"> Snakemake) is a more recent tool
+                            that helps make it easy to create make workflows

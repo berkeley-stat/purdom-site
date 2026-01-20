@@ -1,0 +1,46 @@
+project:
+  type: website
+
+website:
+  title: "Elizabeth Purdom"
+  sidebar: false
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: bibfiles/autopublications.qmd
+        text: Publications
+      - href: biography.qmd
+        text: Curriculum vitae
+      - href: people.qmd
+        text: Research Group
+      - href: teaching.qmd
+        text: Teaching
+    title: false
+    search: true
+    back-to-top-navigation: true
+
+format:
+  html:
+    theme:
+      - materia
+      - cosmo
+      - brand
+    linkcolor: "#2A57A3"
+    toc-color: "#2A57A3"
+    include-in-header:
+      file: siteimprove.html
+    fontsize: 0.9em
+    grid:
+      sidebar-width: 150px
+      body-width: 750px
+      margin-width: 300px
+    css: styles.css
+    toc: true
+    lightbox: true
+    page-layout: full
+
+
+

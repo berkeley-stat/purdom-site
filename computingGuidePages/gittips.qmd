@@ -1,0 +1,393 @@
+---
+title: "Git Repositories"
+---
+
+## Generally
+
+-   I would suggest using something like SourceTree to work with git repositories (and if you are managing a package use the built-in functionality in SourceTree to use gitflow for branches to separate development and public releases).
+
+-   This is a link to a pretty good <a href=http://rypress.com/tutorials/git/index>tutorial</a> and the <a href=https://git-scm.com/book/en/v1>Git Pro book</a>
+
+    </p>
+
+-   See the following article about git and GitHub to think how to integrate git into your workflow: <a href=http://biorxiv.org/content/early/2016/04/15/048744>Ten Simple Rules for Taking Advantage of git and GitHub</a>
+
+-   The following [website](http://mislav.uniqpath.com/2010/07/git-tips%20/%3Ehttp://mislav.uniqpath.com/2010/07/git-tips/) has useful Git tips
+
+What follows are basically just list of useful commands beyond the basic that I've compiled in one quick place. You should look at tutorials to understand what these are doing.
+
+## Getting Started (Minimal you need to learn)</font>
+
+### Make Local Git repository:
+
+Note that if you are making a brand new repository and plan to connect up to a central repository, it's better to just clone it, rather than following these instructions. This is mainly for making a repository from an existing directory. \* Inside the directory where you want the repository type
+
+```         
+> git init
+```
+
+Add files to the git with
+
+```         
+> git add filename
+```
+
+You can use wild cards
+
+```         
+> git add *.R
+```
+
+or add everything with `*`
+
+```         
+> git add *
+```
+
+However, I do not recommend this, because it will add all kinds of files you probably do not want.
+
+Commit files to be versioned with
+
+```         
+git commit -a -m "Your message here"
+```
+
+### Working on your local git repository
+
+-   Once you have your repository set up locally, it will keep track locally of the differences in each file, but only of those files you request to be tracked, and only when you request it. So you need to 'add' files and 'commit' changes.
+
+-   Check the status of files that have been modified, etc:
+
+```         
+git status
+```
+
+-   To add files to be tracked (or to add files whose modifications should be included in the next git if already being tracked):
+
+```         
+git add filename
+```
+
+-   To commit changes to files to be tracked:
+
+```         
+git commit -a -m "my message"
+```
+
+The `-a` says to add to the commit all modifications of files currently being tracked by git. If you forget this option, probably none of your changes will be committed; this is a common reason students think they have pushed their changes so I can see them, but in fact aren't showing up on the other end. `-a` will not add *new* files, however. You must do that manually with `git add`.
+
+If you forget the `-m` in the `git commit` command, a screen will come up for you to enter your message (usually in VIM which is a pain.) \* The above commands only add and commit your files to your local version control. To share it on the central repository, you have to make a connection to the central repository and then sync your changes to the central repository
+
+### Connect to existing central repository:
+
+-   **Make New Local Git repository from existing Remote repository (via SSH)** In the location you want the new repository to be created (i.e. 'cloned') type
+
+```         
+git clone ssh://addressOfServerDirectory
+```
+
+For example:
+
+```         
+git clone ssh://isoform@beren.berkeley.edu/accounts/projects/isoform/gitRepos/projectName
+```
+
+-   **Connect Existing Local Git repository with Remote** (see also this online <a
+                                  href=http://crashingdaily.wordpress.com/2009/09/02/initing-a-new-remote-git-repository-with-existing-files>tutorial</a>) Inside the directory that has the git repository, type
+
+```         
+git remote add origin ssh://addressOfServer
+```
+
+For example
+
+```         
+git remote add origin ssh://isoform@beren.berkeley.edu/accounts/projects/isoform/gitRepos/projectName
+```
+
+-   To check what are your remote connections:
+
+```         
+git remote -v
+```
+
+-   To change the url of a remote:
+
+```         
+git remote set-url origin  ssh://addressOfServer
+```
+
+### Syncing with the central repository on SCF Server
+
+git will not allow you to add anything that will conflict with what is on the repository (e.g. changes uploaded to the repository by someone else). It forces you to incorporate those changes locally before you inflict them on the rest of the world. Usually this is done automatically by default merging, but sometimes if git can't resolve the differences between the two versions, you have to manually go and fix the files.
+
+So generally you need to first 'commit' your changes, 'pull' from the central repos., if needed, fix any differences and commit them (usually done automatically), then 'push' your new (merged) version to the repository.
+
+</p>
+
+1.  Commit your changes:
+
+```         
+git commit -a -m "My changes"
+```
+
+2.  Pull down the commits from the central:
+
+```         
+git pull
+```
+
+This will automatically result in merging of your work with the online. If there are conflicts between your changes and the remote's you will have to manually fix them before you can go any further (see merging below) 3. Push your (committed) changes to the central:
+
+```         
+git push
+```
+
+## Setup a Central Git on SCF Server
+
+We will usually use GitHub for our repos, but occasionally we will want our repos on the SCF server. 1. If there is not a folder in the home directory called `gitRepos` create it. This is where I like all of the repositories for the account to be saved. 2. Under the folder `gitRepos`, make a folder for this repository, preferably with the extensions '.git' at the end 3. Inside that folder, initialize the repository by
+
+```         
+git init --bare
+```
+
+Note that because this is a 'bare' repository, this will have no 'files' that you can look at but only the diff files of changes at each push. This keeps anyone from accidently trying to work off of this directory.
+
+It can frequently be useful to have a copy on the SCF account that you *can* work off of and run scripts from, etc. You should do this by cloning a copy of the central repository to an appropriate directory on the account (not under `gitRepos`!). This local copy will need to push and pull to the repository just like you would from your computer.
+
+## Merging/Fetching
+
+(see also <a                            href=http://git-scm.com/docs/git-merge>documentation</a>):
+
+When you pull from the repos, and there are changes on the repos that are not on your local commit, git will try to merge those changes into your local commit. `pull` is actually two steps: `fetch` and `merge`, and `merge` has different strategies for merging, including `ours` and `theirs` that defines where the priority should be given. We will discuss below running those commands separately so you can have more control over merging, and be able to anticipate what will happen before merging.
+
+git will try to resolve any conflicts from merging. If there is a conflict it can't resolve, they you have to manually solve them before you can push any changes (i.e. you can't add something that will break things for other people).
+
+### Resolving conflicts
+
+Usually the best way to resolve conflicts is to use
+
+```         
+git mergetool
+```
+
+This should be done *after* you've been notified there is a conflict. This command will launch a graphical tool to compare and choose what you want to keep. (you may have to set what the graphical tool should be; Mac has `opendiff` if you've installed XCode. On Windows you will probably need to download a tool.)
+
+For small differences you can also just open up the files that are affected (`git status` will tell you).
+
+You can also undo the merge (at least for committed files, see documentation) with
+
+```         
+git merge --abort origin/master
+```
+
+This is a short term fix -- you will need to eventually be able to merge with master -- but you might, for example, decide to push your changes into a separate branch and deal with the conflicts there.
+
+### Fetch then merge
+
+If you are combining your information with another via pull then git will first "fetch" changes from the central repos and them "merge" together.
+
+It can be better to do these two steps separately if there are major changes between them. (<a href=http://longair.net/blog/2009/04/16/git-fetch-and-merge />post on why better</a>)
+
+```         
+git fetch
+git merge origin/master
+```
+
+`origin/master` refers to the local copy of origin that you just fetched.
+
+The main reason these two separate steps can be safer, is that you can look and see what will happen and change options to the two steps. After you've gotten use to using git via `pull`, I would encourage you to try this way and the techniques below and be careful before you use automatic merging. I have "lost" significant edits via merging -- of course I was able to recover them because they were all on old commits!
+
+If you do `git fetch`, you can then check out what would happen if you merge *before* you merge.
+
+For example after running `fetch`,
+
+```         
+git diff --name-status origin/master
+```
+
+gives you a list of each file that would change.
+
+A command called `difftool` allows you to look, file-by-file, the differences between the changes that would occur on each file:
+
+```         
+git difftool origin/master
+```
+
+You can also do `difftool` with just a single file,
+
+```         
+git difftool origin/master path/to/file
+```
+
+`difftool` is just the gui version of diff command which gives you text that you can also scroll through on your screen. See `rholmes` response to <a
+                                            href=http://stackoverflow.com/questions/4944376/how-to-check-real-git-diff-before-merging-from-remote-branch>this question</a> for a summary as to how different syntax is used by diff.
+
+Similarly there are options for the merge. By default, the results of `merge` are 'committed'. The program needs a merge message, which can be given with the option `-m` so it doesn't open an edit screen. You can do a merge without committing
+
+```         
+git merge --no-commit origin/master
+```
+
+This allows you to look at the changes (e.g. with a `difftool` between `HEAD` and what's in your local directory, see above). If you're okay with them, you can then commit the merge like normal.
+
+Merge also has different strategies for merging, including `ours` and `theirs` that defines where the priority should be given.
+
+## Reverting/Undoing
+
+If you want to look at an old commit, you want the checkout command (see good tutorial <a                          href=https://www.atlassian.com/git/tutorials/undoing-changes/git-checkout />here</a>)
+
+```         
+git checkout XXX
+```
+
+where `XXX` is the name of the commit. You should make sure that any of your changes you've made have been committed or you will lose them. `checkout` brings then entire state of your commit at that time into your directory (and makes your current commit go away).
+
+To get back to where you were, you type,
+
+```         
+git checkout master
+```
+
+`checkout` is good for looking at old commits and figuring out where what you want is (`checkout` is also for moving between branches).
+
+But if you want to revert to an old commit or start making changes based on an old commit, this isn't a good way to do it (if you accidentally do this, you're in a "detached HEAD state" and see this <a href=http://git-scm.com/docs/git-checkout>help page</a> to see what you should do). The better way to get rid of changes and revert is `git revert`. To work simultaneously on both, create a new branch.
+
+</p>
+
+### Finding commits with `log`
+
+How do you find the name of a commit? You usually use the `log` command like follows:
+
+```         
+> git log
+```
+
+This spits out the information from each commit, that will be a list of entries for each commit that look like:
+
+```         
+commit 682d89ca9e04d8c274d2d89419f9bb8a1b142c5a
+Author: Elizabeth Purdom <epurdom@stat.berkeley.edu>
+Date:   Fri Aug 7 17:10:55 2015 -0700
+
+  add new options for function
+```
+
+The name of the commit is the long string of numbers/letters ( `682d89ca9e04d8c274d2d89419f9bb8a1b142c5a`), and the text underneather are the comments you provided at the commit.
+
+To revert to a previous commit you don't usually have to type the whole name when you checkout (just enough of the beginning to uniquely identify it).
+
+This is when you discover the utility (or not) of the comments you made at each change. Using a tool like SourceTree can help a lot for looking at old commits.
+
+You can also get the history of just a specific file:
+
+```         
+git log -- filename
+```
+
+`log` has a lot of options for how to format the output (see useful description <a
+                                    href=https://git-scm.com/book/en/v1/Git-Basics-Viewing-the-Commit-History>here</a>). For example try the following commands:
+
+```         
+git log --pretty=oneline
+git log --stat
+git log --author=epurdom -n=3
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+```
+
+### Undo changes since your last commit
+
+(see also this <a
+                                href=https://schacon.github.io/gitbook/4_undoing_in_git_-_reset,_checkout_and_revert.html>tutorial</a>)
+
+Frequently, you want to undo everything you've done and go back to your last commit. This happens frequently if you use a synchronization program for your computer, and as a result you've 'updated' everything in your git directory, but you don't want those changes via a standard copy. You want to pull them in properly via a pull from the repository. You also might realize that you didn't pull down the changes that are on the repos, and rather than dealing with conflicts, you just want to trash anything you've done. You can do
+
+```         
+git checkout -- .
+```
+
+The `.` just means everything in the directory you're in (so do it at the top of the git directory to do everything), but it can also be replaced with a specific filename.
+
+```         
+                        You can also do
+```
+
+```         
+git reset --hard HEAD
+```
+
+to undo all uncommitted changes (note the difference, 'checkout' allows you to work on a single file or folder using standard unix abbreviations for files; git reset does everything. This is an in depth <a
+                                href=https://git-scm.com/blog/2011/07/11/reset.html>blog</a> on reset).
+
+### Undo changes on a single file
+
+(see also this <a
+                                href=https://www.atlassian.com/git/tutorials/undoing-changes />tutorial</a>) It's likely you want to get an old version of a single file to get something you lost, etc. If you want to look at a specific file from an old commit,
+
+```         
+git checkout XXX path/to/file
+```
+
+This is different from checking out an entire commit, because now you've pulled just the old version of this specific file in the place of the current version of the file.
+
+A simple thing to do would be to copy this old file to a new (unversioned) file name, and then get your current version back via
+
+```         
+git checkout master path/to/file
+```
+
+Then you can compare the two (e.g. using difftool) and make edits to the current version from the old version.
+
+If you truly want to revert to the old file (or entirely to an old commit) rather than manually pulling in information from an old file, you probably want to use git revert. See <a                                    href=https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting />this tutorial</a> for the difference between checkout, revert, reset, and rebase in undoing changes.
+
+## Deleting files
+
+If you delete a tracked file, it will be deleted from the repos. There is a git command that does this:
+
+```         
+git rm myfile
+```
+
+but even if you delete files in other ways, you will still delete the file from the repos (once you've committed the changes). Deleted files can of course be recovered by going to older commits.
+
+However, `git rm` has options that might be useful. For example, you can remove a file from the repos without deleting the local copy
+
+```         
+git rm --cached myfile
+```
+
+Note that keeps *your* local copy intact, but removes it from being tracked in the commit, effectively deleting it for *other users*-- once they pull your changes, will see their file get deleted (see <a
+                                href=http://stackoverflow.com/questions/2604625/git-how-to-remove-file-from-index-without-deleting-files-from-any-repository>stackoverflow question</a>)
+
+### Deleting files that aren't part of the repos
+
+What about if you want to get rid of all files that aren't a part of the repos? You can use the following command:
+
+```         
+git clean -f -d
+```
+
+Be very careful, because there's no undoing these (-f means force and -d means remove directories too).
+
+A common use case is if you have some files in your laptop that have not been added to the git repos, but in another copy on the server you have added them and pushed them to the repos. If you do a `pull` on your laptop, you will get an error, because it will want to add those files to your laptop, but you already have untracked files with this same name on your laptop so it will not do it. You won't be able to pull unless you either a) add and commit your local versions of the file to the repository or b) delete your local versions. Committing your version of the files in this setting will create a conflict (and git doesn't nicely merge pdf files). But if there are a lot of these files, it can be hard to delete them all. This command will clean the directory of all untracked files.
+
+## Other useful tips
+
+-   Aliases: this <a
+                                  href=https://git.wiki.kernel.org/index.php/Aliases>tutorial</a> describes how to do this. It also has a collection of useful aliases. For example
+
+```         
+git config --global alias.hist 'log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+```
+
+creates a (global) git command on your machine (call with 'git hist') that makes a nicely formatted output of the log history. \* To always commit .R, .m, .Rout files (always executed in top of the directory, so gets everything , see the following <a
+                                href=http://stackoverflow.com/questions/957928/is-there-a-way-to-get-the-git-root-directory-in-one-command>link</a>
+
+For example, create a `commitx` command:
+
+```         
+git config alias.commitx '!git add *.Rout && git add *.m && git add *.R && git commit -a -m'
+```
+
+-   **`.gitignore` files** Make good use of the `.gitignore` file so that your `git status` command doesn't show a lot of directories or files that you don't want. And also so you don't dump annoying files onto the rest of the world when you do git add. There is a <a
+                                      href=https://github.com/github/gitignore>public repository</a> of ignore files for common scenarios.

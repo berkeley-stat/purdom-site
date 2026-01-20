@@ -1,0 +1,156 @@
+---
+title: "Knitr and RMarkdown"
+---
+
+Note that the button `knit` in RStudio and knit2html do not work exactly the same. RStudio runs it in a
+                vanilla environment, while knit2html by default uses the global enviornment and also leaves the output
+                in you environment (though you can change that, see below); this can be handy sometimes for debugging,
+                but also means you won't catch problems in your code that your global variables are masking. Also,
+                RStudio will stop compiling if there are errors, while knit2html will compile and create an html, but
+                the html will have errors posted in the html (again, you can change this). Again, both behaviors can be
+                useful. 
+
+Further, current versions of Rmarkdown created in RStudio may need to be compiled with `render` if
+                    you are working at the command line, rather than `knit2html`
+
+* Set global options at top of the document so you can change from
+                        `echo=FALSE` to `echo=TRUE` in one blow, for example.
+                        
+```
+knitr::opts_chunk$set(fig.align="center", cache=TRUE, cache.path = "filename_cache/", message=FALSE,
+			   echo=FALSE, results="hide", fig.path="filename_figure/")
+```
+* Make the names of the chunks without spaces (knitr allows spaces, but
+                        then your files have spaces, which is a pain)
+* Use `fig.width` and `fig.height` in chunks so that you figures are good
+                        spaces, especially if you set `par(mfrow= )` so you don't get squished plots. You can create an
+                        object that defines these, so you could change all of them at once.
+```
+figWidth2Col<-12
+figHeight2Col<-6
+{r MyChunk,fig.width=figWidth2Col,fig.height=figHeight2Col}
+			  par(mfrow=c(1,2))
+			  #code
+
+```
+* To give numbering to your figures in .html output, see the function
+                        `capFig` donated by contributer to [this thread](https://stackoverflow.com/questions/37116632/rmarkdown-html-number-figures)
+* To run knitr at the unix/terminal command line, rather than within R (like R CMD SWEAVE), use Rscript
+```
+Rscript --vanilla  -e "library(knitr); knit2html('test.Rmd');"
+```
+Or if your using yaml headers, like in RStudio, you need
+```
+Rscript --vanilla  -e "library(rmarkdown); render('test.Rmd');"
+```
+If you get the error
+```
+Error: pandoc version 1.12.3 or higher is required and was not found.
+```
+see this <a
+                            href=http://stackoverflow.com/questions/28432607/pandoc-version-1-12-3-or-higher-is-required-and-was-not-found-r-shiny>link</a>
+                        for how to set the right location for pandoc when you run render outside of RStudio.
+* To run `knit2html` and get a new environment (i.e. don't use variables
+                        already in session) set `envir=new.env()`. I think this is what RStudio does (RStudio may also
+                        detach the libraries)\
+                        Alternatively, running it in the global environment is a good way to 'load' everything in your
+                        working space so you can play around with it (especially true for cached chunks.)
+* To have it stop when you hit an error (like the `knit` button in Rstudio) set `error=FALSE` in the chunk environment (or globally at the top).
+              
+## Caching
+* Don't set `cache=TRUE` unless you are going to pay attention to
+                                dependencies between your chunks (e.g. using 'dependson'). Otherwise, your changes won't
+                                get really implemented. For example,
+```
+{r combine}
+#code here
+
+
+{r norm, dependson="combine"}
+#code here
+```
+
+There are also options for finding dependencies automatically which I don't usually use
+                                unless I'm doing something simple that I just as easily could delete the whole cache and
+                                rerun denovo. This is because I have found the autodependencies spotty in performance at
+                                times, though this is not a systematic evaluation.
+* It's probably a good idea to every so often delete your cache
+                                files and run it again regardless. This makes sure that you are catching all the updates
+                                you might have made along the way (sometimes I find caching operations finicky and
+                                giving unexpected results, especially with dependencies on libraries and reading in
+                                files). This is especially true if you are using child documents.
+* If you use cache and are importing external files in that chunk,
+                                you can use 'cache.extra' to make the cache depend on the time stamp of the file. See <a
+                                    href=https://github.com/yihui/knitr/issues/238>https://github.com/yihui/knitr/issues/238</a>
+* Import libraries in an uncached chunk, particularly if you might
+                                change the version of a library or if they are used in multiple chunks. Changes to the
+                                library won't get detected by caching. However, any cache chunks that use the functions
+                                in that library will not rerun, regardless, unless you use something about the version
+                                of the library as a 'cache.extra' to trigger the cache.
+* You can load cache files using 'lazyLoad' if you need to get the
+                                results of a cache.
+
+## Organizing multiple files
+Generally you will not have a giant file with everything you have done, but it is important
+                            to be able to keep a record of how to stitch these together. 
+* Source: You can of course just source a .R file in a knitr chunk.
+                                If you do this you need to make sure that it depends on a time stamp of that file (see
+                                above). 
+* External Chunk definitions: A disadvantage of the above is that
+                                you can't annotate your steps so that you can go back and make some sense of them later,
+                                other than with comments. However, knitr allows you to pull out chunks of code from a .R
+                                file and use them in a .Rmd/.Rnw file using the `read_chunk` command (<a
+                                    href=http://yihui.name/knitr/demo/externalization />http://yihui.name/knitr/demo/externalization/</a>).
+                               \
+                                Your R code would look like this:
+```
+##---- MyFirstChunk
+...
+				
+##---- MySecondChunk
+...
+				
+```
+
+Then you would pull in the chunks like this
+```
+{r readR, cache=FALSE}
+knitr::read_chunk('myCode.R')
+
+{r MyFirstChunk, cache=FALSE}
+
+{r MySecondChunk, cache=TRUE, dependson="MyFirstChunk", fig.width=12}
+```
+This has many nice uses. You can reuse chunks in multiple files; you can source your .R
+                                file on its own when you don't want to annotate it (e.g. one .Rmd file gives you a
+                                reference as to what the preprocessing steps were, and another more polished version
+                                just calls it without comment); you can have more code in your .R file than you
+                                reference in your .Rmd file. 
+* Spin: The above has the downside that it removes your annotation
+                                and notes about what you did from the actual code.
+                                I haven't tried it yet, but there are other options for making inline comments (r
+                                oxygen) that get picked up by the function spin() see <a
+                                    href=http://yihui.name/knitr/demo/stitch />http://yihui.name/knitr/demo/stitch/</a>).
+                                You can put the text and the chunk definitions in a .R file (with appropriate
+                                commenting) so that if you 'spin' it, it will convert to either text or chunk
+                                definitions. But otherwise it would just be regular comments.
+* You can also have children .Rmd files that are read in by a
+                                parent file (<a
+                                    href=http://yihui.name/knitr/demo/child />http://yihui.name/knitr/demo/child/</a>).
+                                This reads in everything, including the annotation, so its really more for chapters,
+                                supplementary text, etc, where a single .Rmd/Rnw file is getting too unwieldy. Another
+                                example would be if you want to make a similar kind of report over and over again with
+                                different input data.
+
+For automating reports over a template, look at the following useful tips 
+
+* <a
+                            href=http://www.reed.edu/data-at-reed/software/R/markdown_multiple_reports.html> Looping
+                            over .Rmd files </a> Calls rmarkdown::render in a for loop, so that the .Rmd files called
+                        make use of variables defined in the global environment (easy way to set arguments for a .Rmd
+                        file)
+* <a
+                            href=https://stackoverflow.com/questions/15501622/making-knitr-run-a-r-script-do-i-use-read-chunk-or-source>Function
+                            run_chunk for sourcing the chunks from a .R file</a> This donated function gives the ability
+                        to selectively read in chunks defined in a .R file (like external chunks used in a .Rmd file
+                        above). But you can do it in a R session or call from a R file.

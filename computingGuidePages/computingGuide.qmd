@@ -1,0 +1,37 @@
+---
+title: "Computing in Purdom Group"
+---
+
+This is a broad overview of some of principles in our group. I mantain an internal Google Doc with specific instructions on how to get setup on our servers specific to the SCF clusters. New members in my group should ask me for access to that file.
+
+For help with parallel computing and using the cluster on SCF see their [help pages](http://statistics.berkeley.edu/computing) (in particular the description of the cluster servers and the workshops and tutorials).
+
+## General Principles
+
+How I like my students to set up their work: 
+
+* I like to have a project account that we can both access on the SCF rather than storing work on your local SCF machines. This makes it easier to share, create git repositories, etc. I also can ask for significant space allotments for these projects that you won't have on your account. Also after students move on, I still have the account!
+* Everyone in my group should be using GitHub for version tracking of our code and paper writting. This allows us to work on the same files and not worry about writing over each other's work (much better than Dropbox). This is primarily for text files (.tex, .Rmd, .R, .py, etc). Do not include a lot of binary files (.pdf, .rdata, etc) on git unless they are fairly 'permanent' results needed for long term (like pdfs needed by Latex paper, final versions of a paper, etc.). In particular, don't put the compiled .pdf of Latex or Knitr files or any intermediate files like .aux, .md, etc.; they should be able to be created locally and they are always getting overwritten making a mess of the git repository for no reason.\
+\
+Please continually commit your changes to git -- not just when I ask to see something. It is
+                          much better to have lots of small changes commited than a giant change every month. Please
+                          don't be worried that you will 'mess up' the repository. That's the point of git -- it's
+                          pretty hard to erase changes permanently. 
+
+
+* I want my students to use Knitr to create reports, papers, and thesis. This makes sure that the R code is there for making the plots, etc. and that I can tweak the plotting code as I want. There are likely to be extensive analysis that takes a lot of time and probably the cluster to run. I don't expect that to be in an omnibus knitr file. Rather, get meaningful, compact summaries of the results of your simulations or extensive data analysis/processing that can be the starting point of the analysis you want to show in the writeup. And of course, anything that doesn't take long (e.g. simple data transformations/cleaning of the data, etc.) *should* be in the knitr file.\
+\
+If you are making a report or presentation *do* put a copy of this compiled file, but in a different location (e.g. 'Reports' folder) so that we can go back to it for reference. This is particularly important if you show something to collaborators, and then later will be tweaking the code. We need a 'hard' copy of what you showed them -- and this also includes the important individual pictures, not just the pdf/html report. This folder can be in a Google drive folder rather than github.
+
+* Always close your R session at the end of each day (without saving your session). If it will take you longer than 5 minutes to get back where you were by reruning your code you should save some intermediate files (and have the corresponding code that you can run in BATCH mode to recreate those intermediate files). If you can't get back to where you were because you did something interactively, then its good to discover that right away and not after a week of work.
+* It's better to have a .txt files for your intermediate and final results, rather than .rdata files, except for rare exceptions where what you are saving is a complex R object. This will make the results more transferable and force you to create nice headers and identification for your files, rather than relying on multiple objects that link up. Some R objects are too useful to break apart (e.g. the result of lm).
+
+
+## Specific Resources
+
+I give some brief help on these tools below (these are more a compilation of useful tricks than tutorials)
+
+* [Git](gittips.qmd)
+* [Knitr / Rmarkdown](knitrtips.qmd)
+* [R Tutorials and Help](rtips.qmd)
+* [Unix](unixtips.qmd)

@@ -1,0 +1,51 @@
+---
+title: "Research"
+---
+
+My research is in the field of applied statistics, particularly in developing and applying methodologies to solve statistical problems that arise in biology. Exciting statistical challenges are continually arising in molecular biology as experimental techniques change rapidly, creating new and more complicated data problems to be addressed. Statistically, this requires the development of appropriate estimation methodology and high-dimensional inference for new types of high-throughput data, as well as multivariate analysis techniques as tools for integration of heterogeneous sources of data. I focus on questions of robust estimation and hypothesis testing for high-throughput biological experiments, in particular gene expression microarrays and next generation sequencing.
+
+     
+One of my current emphasis is methods for data from technologies that allow for molecular measurements of a single cell. I am also interested in integration of heterogeneous sources of data, where the data can be multiple experimental platforms or, more generally, arbitrary forms of preexisting biological knowledge such as networks or trees. 
+
+# Current Research Areas
+
+## Statistical Methods for Single-Cell Data on Patient Cohorts
+
+We are developing coherent methodological frameworks for the analysis of the effect of single-cell variability on patient phenotypes. We focus on the setting of population scRNA-Seq studies, where scRNA-Seq data is collected from many patients representing populations with differing health outcomes. Our research consists of the development and evaluation of statistical methodologies for these kinds of scRNA-Seq population studies. We are particularly interested in strategies for creating a summary representation of the scRNA-Seq profile of a patient and statistical methods that allow comparisons of this summary profile between different patient populations.</p>
+  
+One direct application of these methodologies is for evaluating the degree of biological or technical differences in scRNA-Seq data obtained from patient populations, particularly those which are the result of integrating data from multiple studies or sites. These methods include visualization tools for exploring scRNA-Seq data from patients as well as statistical tests and metrics for quantifying these differences. These methodologies facilitate the evaluation of batch-correction and integration methods for scRNA-Seq data from different patient populations. Our work on benchmarking methodologies is funded by a [CZI Data Insights award](https://chanzuckerberg.com/science/programs-resources/single-cell-biology/data-insights/benchmarking-of-scrna-seq-to-improve-human-health/)
+
+## Investigating high-resolution molecular determinants of skin disease via single-cell sequencing
+
+This work is a collaboration with Raymond Cho  and Jeffrey Cheng at UCSF. The goal of this collaboration is to use single-cell resolution of skin samples to classify atypical skin rashes that cannot be classified based on standard morphological features. To accomplish this, we are finding cellular biomarkers at the individual cell-level that distinguish typical rashes (e.g psoriasis vulgaris and atopic dermatitis). 
+
+# Past Projects
+
+## Classification of Cortical Neurons by Single Cell Transcriptomics
+This NIH-supported [BRAIN Initiative project](http://www.braininitiative.nih.gov)> aims to provide a suite of technologies for identifying and classifying the diverse cell types in the mammalian nervous system. We are part of multidisciplinary collaboration between 10 research groups at UC Berkeley, headed by [John Ngai](https://sites.google.com/site/ngaineuro/people)
+
+I jointly lead (with Sandrine Dudoit and Nir Yosef) the computational group responsible for the identification of different cell types and of biomarker targets. We are also responsible for developing quality control and analysis techniques for single cell data.
+
+See a more detailed description at the [Ngai lab webpage](https://sites.google.com/site/ngaineuro/research). 
+
+Collaborators: John Ngai (Lead PI, MCB), Sandrine Dudoit (Biostatistics), Nir Yosef (CS), Hillel Adesnik (MCB), Helen Bateup (MCB), Dan Feldman (MCB), Jennifer Doudna (MCB, Chemistry, HHMI, LBNL), Dirk Hockemeyer (MCB), Russell Vance (MCB, HHMI)
+
+UC Berkeley press announcement: [September 30, 2014 - NIH awards UC Berkeley $7.2 million to advance brain initiative](http://newscenter.berkeley.edu/2014/09/30/nih-awards-uc-berkeley-7-2-million-to-advance-brain-initiative/)
+
+## Epigenetic Control of Drought Response in Sorghum (EPICON)
+					
+The goal of this DOE-funded project is to generate a model linking the physiology and genetics of sorghum with its epigenetic regulatory machinery, the dynamics of its microbial community and the composite genetic pathways involved in drought response.
+
+				EPICON's efforts will focus on unraveling the temporal role epigenetic signals play in acclimation to and recovery from drought through effects on individual transcription factors or transcriptional networks that direct entire metabolic pathways. To achieve this goal we will follow responses to water deprivation of two sorghum cultivars differing in their drought responses. Sorghum, a widely cultivated cereal with drought and flood tolerance, offers notable advantages as a bioenergy feedstock due to its relatively reduced environmental footprint versus its close relative, corn. In EPICON's three-year field trial, sorghum will be grown under controlled irrigation conditions. Phenotypic analyses will be conducted to chart growth, flowering, grain and biomass yield, and other observable characteristics.  Leaf and root samples will also be taken to perform molecular phenotyping to track spatiotemporal changes in epigenetic, transcriptomic, metabolomic and proteomic footprints. Analysis of the entire data set generated will provide a better understanding of the epigenetic processes responsible for restructuring the metabolic and regulatory landscape of the sorghum genome, and their relationship to drought tolerance.
+
+The Purdom group will lead the computational analysis, specifically to integrate the multiple epigenetic datasets to provide understanding of the interplay of these biological processes.
+					
+Collaborators: [Peggy Lemaux](http://pmb.berkeley.edu/profile/plemaux)  (Lead PI, PMB UC Berkeley), [Devin Coleman-Derr](http://www.ars.usda.gov/pandp/people/people.htm?personid=50006) (PMB UC Berkeley, USDA), [John Taylor](http://taylorlab.berkeley.edu/) (PMB UC Berkeley), [Jeffery A. Dahlberg](http://ucanr.edu/?facultyid=12902 (Kearney Agricultural Research & Extension Center), [Christer Jansson](http://esd.lbl.gov/profiles/christer-jansson/) (EMSL, Pacific Northwest National Laboratory)
+
+UC Berkeley press announcement: [September 28, 2015 - UC Berkeley to spearhead $12.3M project to study crop drought tolerance](http://news.berkeley.edu/2015/09/28/12m-project-crop-drought-tolerance-study/)
+			
+## Analysis of Mutation Spectrum of tumors
+
+This research is centered on the analysis of mutations found by sequencing the DNA of tumor samples. The goal is to understand the mechanisms that lead to the accumulation of DNA mutations in tumors with the goal of better understanding the etiology of cancer.
+
+ Collaborators: [Raymond Cho](http://profiles.ucsf.edu/raymond.cho#toc-id3) (UCSF), [Paul Spellman](http://www.ohsu.edu/xd/education/schools/school-of-medicine/departments/basic-science-departments/molecular-and-medical-genetics/labs/spellman-lab/) (Organ Health and Science University)
