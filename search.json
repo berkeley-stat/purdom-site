@@ -1,0 +1,331 @@
+[
+  {
+    "objectID": "computingGuidePages/gittips.html",
+    "href": "computingGuidePages/gittips.html",
+    "title": "Git Repositories",
+    "section": "",
+    "text": "I would suggest using something like SourceTree to work with git repositories (and if you are managing a package use the built-in functionality in SourceTree to use gitflow for branches to separate development and public releases).\nThis is a link to a pretty good tutorial and the Git Pro book\n\nSee the following article about git and GitHub to think how to integrate git into your workflow: Ten Simple Rules for Taking Advantage of git and GitHub\nThe following website has useful Git tips\n\nWhat follows are basically just list of useful commands beyond the basic that I’ve compiled in one quick place. You should look at tutorials to understand what these are doing."
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#generally",
+    "href": "computingGuidePages/gittips.html#generally",
+    "title": "Git Repositories",
+    "section": "",
+    "text": "I would suggest using something like SourceTree to work with git repositories (and if you are managing a package use the built-in functionality in SourceTree to use gitflow for branches to separate development and public releases).\nThis is a link to a pretty good tutorial and the Git Pro book\n\nSee the following article about git and GitHub to think how to integrate git into your workflow: Ten Simple Rules for Taking Advantage of git and GitHub\nThe following website has useful Git tips\n\nWhat follows are basically just list of useful commands beyond the basic that I’ve compiled in one quick place. You should look at tutorials to understand what these are doing."
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#getting-started-minimal-you-need-to-learn",
+    "href": "computingGuidePages/gittips.html#getting-started-minimal-you-need-to-learn",
+    "title": "Git Repositories",
+    "section": "Getting Started (Minimal you need to learn)",
+    "text": "Getting Started (Minimal you need to learn)\n\nMake Local Git repository:\nNote that if you are making a brand new repository and plan to connect up to a central repository, it’s better to just clone it, rather than following these instructions. This is mainly for making a repository from an existing directory. * Inside the directory where you want the repository type\n&gt; git init\nAdd files to the git with\n&gt; git add filename\nYou can use wild cards\n&gt; git add *.R\nor add everything with *\n&gt; git add *\nHowever, I do not recommend this, because it will add all kinds of files you probably do not want.\nCommit files to be versioned with\ngit commit -a -m \"Your message here\"\n\n\nWorking on your local git repository\n\nOnce you have your repository set up locally, it will keep track locally of the differences in each file, but only of those files you request to be tracked, and only when you request it. So you need to ‘add’ files and ‘commit’ changes.\nCheck the status of files that have been modified, etc:\n\ngit status\n\nTo add files to be tracked (or to add files whose modifications should be included in the next git if already being tracked):\n\ngit add filename\n\nTo commit changes to files to be tracked:\n\ngit commit -a -m \"my message\"\nThe -a says to add to the commit all modifications of files currently being tracked by git. If you forget this option, probably none of your changes will be committed; this is a common reason students think they have pushed their changes so I can see them, but in fact aren’t showing up on the other end. -a will not add new files, however. You must do that manually with git add.\nIf you forget the -m in the git commit command, a screen will come up for you to enter your message (usually in VIM which is a pain.) * The above commands only add and commit your files to your local version control. To share it on the central repository, you have to make a connection to the central repository and then sync your changes to the central repository\n\n\nConnect to existing central repository:\n\nMake New Local Git repository from existing Remote repository (via SSH) In the location you want the new repository to be created (i.e. ‘cloned’) type\n\ngit clone ssh://addressOfServerDirectory\nFor example:\ngit clone ssh://isoform@beren.berkeley.edu/accounts/projects/isoform/gitRepos/projectName\n\nConnect Existing Local Git repository with Remote (see also this online tutorial) Inside the directory that has the git repository, type\n\ngit remote add origin ssh://addressOfServer\nFor example\ngit remote add origin ssh://isoform@beren.berkeley.edu/accounts/projects/isoform/gitRepos/projectName\n\nTo check what are your remote connections:\n\ngit remote -v\n\nTo change the url of a remote:\n\ngit remote set-url origin  ssh://addressOfServer\n\n\nSyncing with the central repository on SCF Server\ngit will not allow you to add anything that will conflict with what is on the repository (e.g. changes uploaded to the repository by someone else). It forces you to incorporate those changes locally before you inflict them on the rest of the world. Usually this is done automatically by default merging, but sometimes if git can’t resolve the differences between the two versions, you have to manually go and fix the files.\nSo generally you need to first ‘commit’ your changes, ‘pull’ from the central repos., if needed, fix any differences and commit them (usually done automatically), then ‘push’ your new (merged) version to the repository.\n\n\nCommit your changes:\n\ngit commit -a -m \"My changes\"\n\nPull down the commits from the central:\n\ngit pull\nThis will automatically result in merging of your work with the online. If there are conflicts between your changes and the remote’s you will have to manually fix them before you can go any further (see merging below) 3. Push your (committed) changes to the central:\ngit push"
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#setup-a-central-git-on-scf-server",
+    "href": "computingGuidePages/gittips.html#setup-a-central-git-on-scf-server",
+    "title": "Git Repositories",
+    "section": "Setup a Central Git on SCF Server",
+    "text": "Setup a Central Git on SCF Server\nWe will usually use GitHub for our repos, but occasionally we will want our repos on the SCF server. 1. If there is not a folder in the home directory called gitRepos create it. This is where I like all of the repositories for the account to be saved. 2. Under the folder gitRepos, make a folder for this repository, preferably with the extensions ‘.git’ at the end 3. Inside that folder, initialize the repository by\ngit init --bare\nNote that because this is a ‘bare’ repository, this will have no ‘files’ that you can look at but only the diff files of changes at each push. This keeps anyone from accidently trying to work off of this directory.\nIt can frequently be useful to have a copy on the SCF account that you can work off of and run scripts from, etc. You should do this by cloning a copy of the central repository to an appropriate directory on the account (not under gitRepos!). This local copy will need to push and pull to the repository just like you would from your computer."
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#mergingfetching",
+    "href": "computingGuidePages/gittips.html#mergingfetching",
+    "title": "Git Repositories",
+    "section": "Merging/Fetching",
+    "text": "Merging/Fetching\n(see also documentation):\nWhen you pull from the repos, and there are changes on the repos that are not on your local commit, git will try to merge those changes into your local commit. pull is actually two steps: fetch and merge, and merge has different strategies for merging, including ours and theirs that defines where the priority should be given. We will discuss below running those commands separately so you can have more control over merging, and be able to anticipate what will happen before merging.\ngit will try to resolve any conflicts from merging. If there is a conflict it can’t resolve, they you have to manually solve them before you can push any changes (i.e. you can’t add something that will break things for other people).\n\nResolving conflicts\nUsually the best way to resolve conflicts is to use\ngit mergetool\nThis should be done after you’ve been notified there is a conflict. This command will launch a graphical tool to compare and choose what you want to keep. (you may have to set what the graphical tool should be; Mac has opendiff if you’ve installed XCode. On Windows you will probably need to download a tool.)\nFor small differences you can also just open up the files that are affected (git status will tell you).\nYou can also undo the merge (at least for committed files, see documentation) with\ngit merge --abort origin/master\nThis is a short term fix – you will need to eventually be able to merge with master – but you might, for example, decide to push your changes into a separate branch and deal with the conflicts there.\n\n\nFetch then merge\nIf you are combining your information with another via pull then git will first “fetch” changes from the central repos and them “merge” together.\nIt can be better to do these two steps separately if there are major changes between them. (post on why better)\ngit fetch\ngit merge origin/master\norigin/master refers to the local copy of origin that you just fetched.\nThe main reason these two separate steps can be safer, is that you can look and see what will happen and change options to the two steps. After you’ve gotten use to using git via pull, I would encourage you to try this way and the techniques below and be careful before you use automatic merging. I have “lost” significant edits via merging – of course I was able to recover them because they were all on old commits!\nIf you do git fetch, you can then check out what would happen if you merge before you merge.\nFor example after running fetch,\ngit diff --name-status origin/master\ngives you a list of each file that would change.\nA command called difftool allows you to look, file-by-file, the differences between the changes that would occur on each file:\ngit difftool origin/master\nYou can also do difftool with just a single file,\ngit difftool origin/master path/to/file\ndifftool is just the gui version of diff command which gives you text that you can also scroll through on your screen. See rholmes response to this question for a summary as to how different syntax is used by diff.\nSimilarly there are options for the merge. By default, the results of merge are ‘committed’. The program needs a merge message, which can be given with the option -m so it doesn’t open an edit screen. You can do a merge without committing\ngit merge --no-commit origin/master\nThis allows you to look at the changes (e.g. with a difftool between HEAD and what’s in your local directory, see above). If you’re okay with them, you can then commit the merge like normal.\nMerge also has different strategies for merging, including ours and theirs that defines where the priority should be given."
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#revertingundoing",
+    "href": "computingGuidePages/gittips.html#revertingundoing",
+    "title": "Git Repositories",
+    "section": "Reverting/Undoing",
+    "text": "Reverting/Undoing\nIf you want to look at an old commit, you want the checkout command (see good tutorial here)\ngit checkout XXX\nwhere XXX is the name of the commit. You should make sure that any of your changes you’ve made have been committed or you will lose them. checkout brings then entire state of your commit at that time into your directory (and makes your current commit go away).\nTo get back to where you were, you type,\ngit checkout master\ncheckout is good for looking at old commits and figuring out where what you want is (checkout is also for moving between branches).\nBut if you want to revert to an old commit or start making changes based on an old commit, this isn’t a good way to do it (if you accidentally do this, you’re in a “detached HEAD state” and see this help page to see what you should do). The better way to get rid of changes and revert is git revert. To work simultaneously on both, create a new branch.\n\n\nFinding commits with log\nHow do you find the name of a commit? You usually use the log command like follows:\n&gt; git log\nThis spits out the information from each commit, that will be a list of entries for each commit that look like:\ncommit 682d89ca9e04d8c274d2d89419f9bb8a1b142c5a\nAuthor: Elizabeth Purdom &lt;epurdom@stat.berkeley.edu&gt;\nDate:   Fri Aug 7 17:10:55 2015 -0700\n\n  add new options for function\nThe name of the commit is the long string of numbers/letters ( 682d89ca9e04d8c274d2d89419f9bb8a1b142c5a), and the text underneather are the comments you provided at the commit.\nTo revert to a previous commit you don’t usually have to type the whole name when you checkout (just enough of the beginning to uniquely identify it).\nThis is when you discover the utility (or not) of the comments you made at each change. Using a tool like SourceTree can help a lot for looking at old commits.\nYou can also get the history of just a specific file:\ngit log -- filename\nlog has a lot of options for how to format the output (see useful description here). For example try the following commands:\ngit log --pretty=oneline\ngit log --stat\ngit log --author=epurdom -n=3\ngit log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short\n\n\nUndo changes since your last commit\n(see also this tutorial)\nFrequently, you want to undo everything you’ve done and go back to your last commit. This happens frequently if you use a synchronization program for your computer, and as a result you’ve ‘updated’ everything in your git directory, but you don’t want those changes via a standard copy. You want to pull them in properly via a pull from the repository. You also might realize that you didn’t pull down the changes that are on the repos, and rather than dealing with conflicts, you just want to trash anything you’ve done. You can do\ngit checkout -- .\nThe . just means everything in the directory you’re in (so do it at the top of the git directory to do everything), but it can also be replaced with a specific filename.\n                        You can also do\ngit reset --hard HEAD\nto undo all uncommitted changes (note the difference, ‘checkout’ allows you to work on a single file or folder using standard unix abbreviations for files; git reset does everything. This is an in depth blog on reset).\n\n\nUndo changes on a single file\n(see also this tutorial) It’s likely you want to get an old version of a single file to get something you lost, etc. If you want to look at a specific file from an old commit,\ngit checkout XXX path/to/file\nThis is different from checking out an entire commit, because now you’ve pulled just the old version of this specific file in the place of the current version of the file.\nA simple thing to do would be to copy this old file to a new (unversioned) file name, and then get your current version back via\ngit checkout master path/to/file\nThen you can compare the two (e.g. using difftool) and make edits to the current version from the old version.\nIf you truly want to revert to the old file (or entirely to an old commit) rather than manually pulling in information from an old file, you probably want to use git revert. See this tutorial for the difference between checkout, revert, reset, and rebase in undoing changes."
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#deleting-files",
+    "href": "computingGuidePages/gittips.html#deleting-files",
+    "title": "Git Repositories",
+    "section": "Deleting files",
+    "text": "Deleting files\nIf you delete a tracked file, it will be deleted from the repos. There is a git command that does this:\ngit rm myfile\nbut even if you delete files in other ways, you will still delete the file from the repos (once you’ve committed the changes). Deleted files can of course be recovered by going to older commits.\nHowever, git rm has options that might be useful. For example, you can remove a file from the repos without deleting the local copy\ngit rm --cached myfile\nNote that keeps your local copy intact, but removes it from being tracked in the commit, effectively deleting it for other users– once they pull your changes, will see their file get deleted (see stackoverflow question)\n\nDeleting files that aren’t part of the repos\nWhat about if you want to get rid of all files that aren’t a part of the repos? You can use the following command:\ngit clean -f -d\nBe very careful, because there’s no undoing these (-f means force and -d means remove directories too).\nA common use case is if you have some files in your laptop that have not been added to the git repos, but in another copy on the server you have added them and pushed them to the repos. If you do a pull on your laptop, you will get an error, because it will want to add those files to your laptop, but you already have untracked files with this same name on your laptop so it will not do it. You won’t be able to pull unless you either a) add and commit your local versions of the file to the repository or b) delete your local versions. Committing your version of the files in this setting will create a conflict (and git doesn’t nicely merge pdf files). But if there are a lot of these files, it can be hard to delete them all. This command will clean the directory of all untracked files."
+  },
+  {
+    "objectID": "computingGuidePages/gittips.html#other-useful-tips",
+    "href": "computingGuidePages/gittips.html#other-useful-tips",
+    "title": "Git Repositories",
+    "section": "Other useful tips",
+    "text": "Other useful tips\n\nAliases: this tutorial describes how to do this. It also has a collection of useful aliases. For example\n\ngit config --global alias.hist 'log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short'\ncreates a (global) git command on your machine (call with ‘git hist’) that makes a nicely formatted output of the log history. * To always commit .R, .m, .Rout files (always executed in top of the directory, so gets everything , see the following link\nFor example, create a commitx command:\ngit config alias.commitx '!git add *.Rout && git add *.m && git add *.R && git commit -a -m'\n\n.gitignore files Make good use of the .gitignore file so that your git status command doesn’t show a lot of directories or files that you don’t want. And also so you don’t dump annoying files onto the rest of the world when you do git add. There is a public repository of ignore files for common scenarios."
+  },
+  {
+    "objectID": "computingGuidePages/rtips.html",
+    "href": "computingGuidePages/rtips.html",
+    "title": "R Tutorials and Help",
+    "section": "",
+    "text": "Summary of Useful R commands by Elizabeth Purdom. Also limited version in pdf.\n Saving/Moving R Objects; Libraries  by Elizabeth Purdom\nWriting Functions by Elizabeth Purdom (Rmarkdown available here)\nOther useful webpages"
+  },
+  {
+    "objectID": "computingGuidePages/rtips.html#general-useful-information",
+    "href": "computingGuidePages/rtips.html#general-useful-information",
+    "title": "R Tutorials and Help",
+    "section": "",
+    "text": "Summary of Useful R commands by Elizabeth Purdom. Also limited version in pdf.\n Saving/Moving R Objects; Libraries  by Elizabeth Purdom\nWriting Functions by Elizabeth Purdom (Rmarkdown available here)\nOther useful webpages"
+  },
+  {
+    "objectID": "computingGuidePages/rtips.html#writing-a-package",
+    "href": "computingGuidePages/rtips.html#writing-a-package",
+    "title": "R Tutorials and Help",
+    "section": "Writing A Package",
+    "text": "Writing A Package\nI strongly suggest you look at the tools available in devtools and RStudio and that you use Roxygen for writing your documentation files.\n\nBuilding and Maintaining R Packages with devtools and roxygen2\nDeveloping Packages with RStudio\nR Packages by Hadley Wickham"
+  },
+  {
+    "objectID": "computingGuidePages/rtips.html#coding-tips",
+    "href": "computingGuidePages/rtips.html#coding-tips",
+    "title": "R Tutorials and Help",
+    "section": "Coding Tips",
+    "text": "Coding Tips\n\n FasteR! HigheR! StrongeR! - A Guide to Speeding Up R Code for Busy People"
+  },
+  {
+    "objectID": "computingGuidePages/rtips.html#specific-teaching-labs-created-for-various-courses",
+    "href": "computingGuidePages/rtips.html#specific-teaching-labs-created-for-various-courses",
+    "title": "R Tutorials and Help",
+    "section": "Specific Teaching Labs (created for various courses)",
+    "text": "Specific Teaching Labs (created for various courses)\n\nIntroduction Labs\n\n Short Version–Barebones of R objects, Plotting, etc.\n More Advanced – Includes information regarding writing functions, more about R objects\n Most Complete (except for exercises!) – More advanced plotting examples and techniques, basic statistical techniques\n\n Introduction to R/SPLUS; Bootstrap Calculations; Programming & Debugging by Noureddine El Karoui and Pei Wang\n A Note on Frequency Tables by Elizabeth Purdom\nProbability Calculations by Debashis Paul and updated by Elizabeth Purdom\nTest/Power Calculations by Debashis Paul and updated by Claire Lunch\n ANOVA  by Elizabeth Purdom\n Regression  by Debashis Paul and Elizabeth Purdom"
+  },
+  {
+    "objectID": "computingGuidePages/knitrtips.html",
+    "href": "computingGuidePages/knitrtips.html",
+    "title": "Knitr and RMarkdown",
+    "section": "",
+    "text": "Note that the button knit in RStudio and knit2html do not work exactly the same. RStudio runs it in a vanilla environment, while knit2html by default uses the global enviornment and also leaves the output in you environment (though you can change that, see below); this can be handy sometimes for debugging, but also means you won’t catch problems in your code that your global variables are masking. Also, RStudio will stop compiling if there are errors, while knit2html will compile and create an html, but the html will have errors posted in the html (again, you can change this). Again, both behaviors can be useful.\nFurther, current versions of Rmarkdown created in RStudio may need to be compiled with render if you are working at the command line, rather than knit2html\nOr if your using yaml headers, like in RStudio, you need\nIf you get the error\nsee this link for how to set the right location for pandoc when you run render outside of RStudio. * To run knit2html and get a new environment (i.e. don’t use variables already in session) set envir=new.env(). I think this is what RStudio does (RStudio may also detach the libraries)\nAlternatively, running it in the global environment is a good way to ‘load’ everything in your working space so you can play around with it (especially true for cached chunks.) * To have it stop when you hit an error (like the knit button in Rstudio) set error=FALSE in the chunk environment (or globally at the top)."
+  },
+  {
+    "objectID": "computingGuidePages/knitrtips.html#caching",
+    "href": "computingGuidePages/knitrtips.html#caching",
+    "title": "Knitr and RMarkdown",
+    "section": "Caching",
+    "text": "Caching\n\nDon’t set cache=TRUE unless you are going to pay attention to dependencies between your chunks (e.g. using ‘dependson’). Otherwise, your changes won’t get really implemented. For example,\n\n{r combine}\n#code here\n\n\n{r norm, dependson=\"combine\"}\n#code here\nThere are also options for finding dependencies automatically which I don’t usually use unless I’m doing something simple that I just as easily could delete the whole cache and rerun denovo. This is because I have found the autodependencies spotty in performance at times, though this is not a systematic evaluation. * It’s probably a good idea to every so often delete your cache files and run it again regardless. This makes sure that you are catching all the updates you might have made along the way (sometimes I find caching operations finicky and giving unexpected results, especially with dependencies on libraries and reading in files). This is especially true if you are using child documents. * If you use cache and are importing external files in that chunk, you can use ‘cache.extra’ to make the cache depend on the time stamp of the file. See https://github.com/yihui/knitr/issues/238 * Import libraries in an uncached chunk, particularly if you might change the version of a library or if they are used in multiple chunks. Changes to the library won’t get detected by caching. However, any cache chunks that use the functions in that library will not rerun, regardless, unless you use something about the version of the library as a ‘cache.extra’ to trigger the cache. * You can load cache files using ‘lazyLoad’ if you need to get the results of a cache."
+  },
+  {
+    "objectID": "computingGuidePages/knitrtips.html#organizing-multiple-files",
+    "href": "computingGuidePages/knitrtips.html#organizing-multiple-files",
+    "title": "Knitr and RMarkdown",
+    "section": "Organizing multiple files",
+    "text": "Organizing multiple files\nGenerally you will not have a giant file with everything you have done, but it is important to be able to keep a record of how to stitch these together. * Source: You can of course just source a .R file in a knitr chunk. If you do this you need to make sure that it depends on a time stamp of that file (see above). * External Chunk definitions: A disadvantage of the above is that you can’t annotate your steps so that you can go back and make some sense of them later, other than with comments. However, knitr allows you to pull out chunks of code from a .R file and use them in a .Rmd/.Rnw file using the read_chunk command (http://yihui.name/knitr/demo/externalization/).\nYour R code would look like this:\n##---- MyFirstChunk\n...\n                \n##---- MySecondChunk\n...\n                \nThen you would pull in the chunks like this\n{r readR, cache=FALSE}\nknitr::read_chunk('myCode.R')\n\n{r MyFirstChunk, cache=FALSE}\n\n{r MySecondChunk, cache=TRUE, dependson=\"MyFirstChunk\", fig.width=12}\nThis has many nice uses. You can reuse chunks in multiple files; you can source your .R file on its own when you don’t want to annotate it (e.g. one .Rmd file gives you a reference as to what the preprocessing steps were, and another more polished version just calls it without comment); you can have more code in your .R file than you reference in your .Rmd file. * Spin: The above has the downside that it removes your annotation and notes about what you did from the actual code. I haven’t tried it yet, but there are other options for making inline comments (r oxygen) that get picked up by the function spin() see http://yihui.name/knitr/demo/stitch/). You can put the text and the chunk definitions in a .R file (with appropriate commenting) so that if you ‘spin’ it, it will convert to either text or chunk definitions. But otherwise it would just be regular comments. * You can also have children .Rmd files that are read in by a parent file (http://yihui.name/knitr/demo/child/). This reads in everything, including the annotation, so its really more for chapters, supplementary text, etc, where a single .Rmd/Rnw file is getting too unwieldy. Another example would be if you want to make a similar kind of report over and over again with different input data.\nFor automating reports over a template, look at the following useful tips\n\n Looping over .Rmd files  Calls rmarkdown::render in a for loop, so that the .Rmd files called make use of variables defined in the global environment (easy way to set arguments for a .Rmd file)\nFunction run_chunk for sourcing the chunks from a .R file This donated function gives the ability to selectively read in chunks defined in a .R file (like external chunks used in a .Rmd file above). But you can do it in a R session or call from a R file."
+  },
+  {
+    "objectID": "people.html",
+    "href": "people.html",
+    "title": "Purdom Group",
+    "section": "",
+    "text": "If you are a graduate student at UC Berkeley interested in joining my research group or attending my group meetings, please feel free to contact me.\nIf you are a prospective student, I do not admit students directly into my lab, and you should contact the PhD admissions\nTips and guidelines for computing practices in my group"
+  },
+  {
+    "objectID": "people.html#joining-my-group",
+    "href": "people.html#joining-my-group",
+    "title": "Purdom Group",
+    "section": "",
+    "text": "If you are a graduate student at UC Berkeley interested in joining my research group or attending my group meetings, please feel free to contact me.\nIf you are a prospective student, I do not admit students directly into my lab, and you should contact the PhD admissions\nTips and guidelines for computing practices in my group"
+  },
+  {
+    "objectID": "people.html#current-graduate-students-and-post-docs",
+    "href": "people.html#current-graduate-students-and-post-docs",
+    "title": "Purdom Group",
+    "section": "Current Graduate Students and Post-Docs",
+    "text": "Current Graduate Students and Post-Docs\n\nFlorica Constantine\nLucas Etourneau\nVan Hovenga\nKeying (Maggie) Kuang\nNicolas Sanchez\nZhiwei Xiao"
+  },
+  {
+    "objectID": "people.html#former-students",
+    "href": "people.html#former-students",
+    "title": "Purdom Group",
+    "section": "Former Students",
+    "text": "Former Students\n\nWilliam Torous\nYilong Hao (MA, 2024)\nHao Wang (PhD, 2024) Thesis: “Application of statistical methods to patient level analysis on Single Cell RNA-Seq data”\nBoying Gong (PhD, 2021) Thesis: “Statistical Analysis and Integration of Multi-modal Sequencing Data”\nStephanie DeGraaf (PhD, 2020) Thesis: “Time-Course Analysis and Clustering of Gene Expression Data”\nNamita Trikannad (MA)\nMarla Johnson (PhD, 2017) Thesis: “Clustering of mRNA-Seq Data for Detection of Alternative Splicing Patterns”\nChristine Ho (PhD, 2016) Thesis: “Statistical modeling and analysis for biomedical applications”\nSean Ruddy (PhD, 2014) Thesis: “Shrinkage of dispersion parameters in the double exponential family of distributions, with applications to genomic sequencing”"
+  },
+  {
+    "objectID": "people.html#former-post-docs",
+    "href": "people.html#former-post-docs",
+    "title": "Purdom Group",
+    "section": "Former Post-Docs",
+    "text": "Former Post-Docs\n\nNelle Varoquaux\nSean Ruddy"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Elizabeth Purdom",
+    "section": "",
+    "text": "Associate Professor\nDepartment of Statistics\nCenter for Computational Biology\nUC, Berkeley\n\n\n\nAddress: 367 Evans Hall #3860, Berkeley, CA 94720\nPhone: 510-642-6154\nFax: 510-642-7892\nEmail: epurdom@stat.berkeley.edu"
+  },
+  {
+    "objectID": "index.html#elizabeth-purdom",
+    "href": "index.html#elizabeth-purdom",
+    "title": "Elizabeth Purdom",
+    "section": "",
+    "text": "Associate Professor\nDepartment of Statistics\nCenter for Computational Biology\nUC, Berkeley"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Elizabeth Purdom",
+    "section": "",
+    "text": "Address: 367 Evans Hall #3860, Berkeley, CA 94720\nPhone: 510-642-6154\nFax: 510-642-7892\nEmail: epurdom@stat.berkeley.edu"
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Elizabeth Purdom",
+    "section": "About me",
+    "text": "About me\nI am a faculty of UC, Berkeley in the Department of Statistics and the Center for Computational Biology. I received my PhD in Statistics from Stanford University in 2006 under the guidence of Susan Holmes for work on multivariate kernel methods in the analysis of graphical structures found in biology, such as gene networks or phylogenetic trees. I was then awarded a NSF Bioinformatics post-doctoral fellowship where I researched methods for transcriptomic platforms and cancer genomics under the guidence of Terry Speed in the Department of Statistics at UC Berkeley. In 2009, I became a faculty member in the Department of Statistics of UC Berkeley.\nResearch in the my group focuses on developing and applying methodologies to solve statistical problems that arise in ’omics applications, particularly in the area of single-cell and spatial transcriptomic studies."
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "Below are courses I have taught at UC Berkeley and links to their syllabi"
+  },
+  {
+    "objectID": "teaching.html#undergraduate-courses",
+    "href": "teaching.html#undergraduate-courses",
+    "title": "Teaching",
+    "section": "Undergraduate Courses",
+    "text": "Undergraduate Courses\n\nStat 131A: Statistical Methods for Data Science\nInformation and materials can be found here\n\nSpring 2023\nFall 2019\nSpring 2017\n\nStat 158: Design and Analysis of Experiments\n\nSpring 2015\nFall 2013\nSpring 2013\n\nStat 152: Sampling Surveys\n\nSpring 2019\nSpring 2014\nSpring 2011\nSpring 2014"
+  },
+  {
+    "objectID": "teaching.html#graduate-level-courses",
+    "href": "teaching.html#graduate-level-courses",
+    "title": "Teaching",
+    "section": "Graduate Level Courses",
+    "text": "Graduate Level Courses\n\nStat 201B\n\nFall 2024\nFall 2023\nFall 2020\n\nStat 215B: Statistical Models: Theory and Application\n\nSpring 2022\nSpring 2022\nSpring 2020\nSpring 2011\nSpring 2010"
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "My research is in the field of applied statistics, particularly in developing and applying methodologies to solve statistical problems that arise in biology. Exciting statistical challenges are continually arising in molecular biology as experimental techniques change rapidly, creating new and more complicated data problems to be addressed. Statistically, this requires the development of appropriate estimation methodology and high-dimensional inference for new types of high-throughput data, as well as multivariate analysis techniques as tools for integration of heterogeneous sources of data. I focus on questions of robust estimation and hypothesis testing for high-throughput biological experiments, in particular gene expression microarrays and next generation sequencing.\nOne of my current emphasis is methods for data from technologies that allow for molecular measurements of a single cell. I am also interested in integration of heterogeneous sources of data, where the data can be multiple experimental platforms or, more generally, arbitrary forms of preexisting biological knowledge such as networks or trees."
+  },
+  {
+    "objectID": "research.html#statistical-methods-for-single-cell-data-on-patient-cohorts",
+    "href": "research.html#statistical-methods-for-single-cell-data-on-patient-cohorts",
+    "title": "Research",
+    "section": "Statistical Methods for Single-Cell Data on Patient Cohorts",
+    "text": "Statistical Methods for Single-Cell Data on Patient Cohorts\nWe are developing coherent methodological frameworks for the analysis of the effect of single-cell variability on patient phenotypes. We focus on the setting of population scRNA-Seq studies, where scRNA-Seq data is collected from many patients representing populations with differing health outcomes. Our research consists of the development and evaluation of statistical methodologies for these kinds of scRNA-Seq population studies. We are particularly interested in strategies for creating a summary representation of the scRNA-Seq profile of a patient and statistical methods that allow comparisons of this summary profile between different patient populations.\n\nOne direct application of these methodologies is for evaluating the degree of biological or technical differences in scRNA-Seq data obtained from patient populations, particularly those which are the result of integrating data from multiple studies or sites. These methods include visualization tools for exploring scRNA-Seq data from patients as well as statistical tests and metrics for quantifying these differences. These methodologies facilitate the evaluation of batch-correction and integration methods for scRNA-Seq data from different patient populations. Our work on benchmarking methodologies is funded by a CZI Data Insights award"
+  },
+  {
+    "objectID": "research.html#investigating-high-resolution-molecular-determinants-of-skin-disease-via-single-cell-sequencing",
+    "href": "research.html#investigating-high-resolution-molecular-determinants-of-skin-disease-via-single-cell-sequencing",
+    "title": "Research",
+    "section": "Investigating high-resolution molecular determinants of skin disease via single-cell sequencing",
+    "text": "Investigating high-resolution molecular determinants of skin disease via single-cell sequencing\nThis work is a collaboration with Raymond Cho and Jeffrey Cheng at UCSF. The goal of this collaboration is to use single-cell resolution of skin samples to classify atypical skin rashes that cannot be classified based on standard morphological features. To accomplish this, we are finding cellular biomarkers at the individual cell-level that distinguish typical rashes (e.g psoriasis vulgaris and atopic dermatitis)."
+  },
+  {
+    "objectID": "research.html#classification-of-cortical-neurons-by-single-cell-transcriptomics",
+    "href": "research.html#classification-of-cortical-neurons-by-single-cell-transcriptomics",
+    "title": "Research",
+    "section": "Classification of Cortical Neurons by Single Cell Transcriptomics",
+    "text": "Classification of Cortical Neurons by Single Cell Transcriptomics\nThis NIH-supported BRAIN Initiative project&gt; aims to provide a suite of technologies for identifying and classifying the diverse cell types in the mammalian nervous system. We are part of multidisciplinary collaboration between 10 research groups at UC Berkeley, headed by John Ngai\nI jointly lead (with Sandrine Dudoit and Nir Yosef) the computational group responsible for the identification of different cell types and of biomarker targets. We are also responsible for developing quality control and analysis techniques for single cell data.\nSee a more detailed description at the Ngai lab webpage.\nCollaborators: John Ngai (Lead PI, MCB), Sandrine Dudoit (Biostatistics), Nir Yosef (CS), Hillel Adesnik (MCB), Helen Bateup (MCB), Dan Feldman (MCB), Jennifer Doudna (MCB, Chemistry, HHMI, LBNL), Dirk Hockemeyer (MCB), Russell Vance (MCB, HHMI)\nUC Berkeley press announcement: September 30, 2014 - NIH awards UC Berkeley $7.2 million to advance brain initiative"
+  },
+  {
+    "objectID": "research.html#epigenetic-control-of-drought-response-in-sorghum-epicon",
+    "href": "research.html#epigenetic-control-of-drought-response-in-sorghum-epicon",
+    "title": "Research",
+    "section": "Epigenetic Control of Drought Response in Sorghum (EPICON)",
+    "text": "Epigenetic Control of Drought Response in Sorghum (EPICON)\nThe goal of this DOE-funded project is to generate a model linking the physiology and genetics of sorghum with its epigenetic regulatory machinery, the dynamics of its microbial community and the composite genetic pathways involved in drought response.\n            EPICON's efforts will focus on unraveling the temporal role epigenetic signals play in acclimation to and recovery from drought through effects on individual transcription factors or transcriptional networks that direct entire metabolic pathways. To achieve this goal we will follow responses to water deprivation of two sorghum cultivars differing in their drought responses. Sorghum, a widely cultivated cereal with drought and flood tolerance, offers notable advantages as a bioenergy feedstock due to its relatively reduced environmental footprint versus its close relative, corn. In EPICON's three-year field trial, sorghum will be grown under controlled irrigation conditions. Phenotypic analyses will be conducted to chart growth, flowering, grain and biomass yield, and other observable characteristics.  Leaf and root samples will also be taken to perform molecular phenotyping to track spatiotemporal changes in epigenetic, transcriptomic, metabolomic and proteomic footprints. Analysis of the entire data set generated will provide a better understanding of the epigenetic processes responsible for restructuring the metabolic and regulatory landscape of the sorghum genome, and their relationship to drought tolerance.\nThe Purdom group will lead the computational analysis, specifically to integrate the multiple epigenetic datasets to provide understanding of the interplay of these biological processes.\nCollaborators: Peggy Lemaux (Lead PI, PMB UC Berkeley), Devin Coleman-Derr (PMB UC Berkeley, USDA), John Taylor (PMB UC Berkeley), [Jeffery A. Dahlberg](http://ucanr.edu/?facultyid=12902 (Kearney Agricultural Research & Extension Center), Christer Jansson (EMSL, Pacific Northwest National Laboratory)\nUC Berkeley press announcement: September 28, 2015 - UC Berkeley to spearhead $12.3M project to study crop drought tolerance"
+  },
+  {
+    "objectID": "research.html#analysis-of-mutation-spectrum-of-tumors",
+    "href": "research.html#analysis-of-mutation-spectrum-of-tumors",
+    "title": "Research",
+    "section": "Analysis of Mutation Spectrum of tumors",
+    "text": "Analysis of Mutation Spectrum of tumors\nThis research is centered on the analysis of mutations found by sequencing the DNA of tumor samples. The goal is to understand the mechanisms that lead to the accumulation of DNA mutations in tumors with the goal of better understanding the etiology of cancer.\nCollaborators: Raymond Cho (UCSF), Paul Spellman (Organ Health and Science University)"
+  },
+  {
+    "objectID": "biography.html",
+    "href": "biography.html",
+    "title": "Abbreviated CV",
+    "section": "",
+    "text": "Full CV as of July 2024 (pdf)"
+  },
+  {
+    "objectID": "biography.html#post-graduate-employment",
+    "href": "biography.html#post-graduate-employment",
+    "title": "Abbreviated CV",
+    "section": "Post-Graduate Employment",
+    "text": "Post-Graduate Employment\n\nAssociate Professor Department of Statistics, UC, Berkeley, CA Jul 2016 - Present\nAssistant Professor Department of Statistics, UC, Berkeley, CA Jul 2009- Jun 2016\nNSF Post-Doctoral Fellow in Biological Informatics Division of Biostatistics, UC, Berkeley, CA Mar 2007- Jul 2009\nPost-Doctoral Scholar Mathematical Sciences Research Institute, Berkeley, CA Sept 2006- Feb 2007"
+  },
+  {
+    "objectID": "biography.html#grants-and-honors",
+    "href": "biography.html#grants-and-honors",
+    "title": "Abbreviated CV",
+    "section": "Grants and Honors",
+    "text": "Grants and Honors\n\nCZ Biohub Investigator\nHellman Family Faculty Award\nNSF Post-Doctoral Fellow in Biological Informatics\nGabilan Stanford Graduate Fellowship in Science and Engineering (Stanford University)\nWrexham Prize for the best senior essay in the field of Humanities (Yale University)\nJohn Addison Porter Prize in American History (Department of History, Yale University)"
+  },
+  {
+    "objectID": "biography.html#education",
+    "href": "biography.html#education",
+    "title": "Abbreviated CV",
+    "section": "Education",
+    "text": "Education\n\nPh.D., Statistics Stanford University, Stanford, CA Advisor: Susan Holmes Thesis Title: Multivariate Kernel Methods in the Analysis of Graphical Structures\nB.S. Applied Mathematics and History (Double Major) Yale University, New Haven, CT Summa Cum Laude Distinction in the major of Applied Mathematics, concentration in Statistics Distinction in the major of History"
+  },
+  {
+    "objectID": "bibfiles/autopublications.html",
+    "href": "bibfiles/autopublications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Google Scholar Profile"
+  },
+  {
+    "objectID": "bibfiles/autopublications.html#bioinformatic-and-statistical-methodology",
+    "href": "bibfiles/autopublications.html#bioinformatic-and-statistical-methodology",
+    "title": "Publications",
+    "section": "Bioinformatic and Statistical Methodology",
+    "text": "Bioinformatic and Statistical Methodology\n\n\nRoux de Bézieux H, Street K, Fischer S, Van den Berge K, Chance R, Risso D et al. Improving replicability in single-cell RNA-seq cell type discovery with dune. BMC Bioinformatics 2024; 25. doi:10.1186/s12859-024-05814-6.\n\n\nWang H, Torous W, Gong B, Purdom E. Visualizing scRNA-seq data at population scale with GloScope. Genome Biology 2024; 25: 259.\n\n\nGong B, Zhou Y, Purdom E. Cobolt: Integrative analysis of multimodal single-cell sequencing data. Genome Biology 2021; 22: 351.\n\n\nHicks SC, Liu R, Ni Y, Purdom E, Risso D. mbkmeans: Fast clustering for single cell data using mini-batch k-means. PLoS Computational Biology 2021; 17: e1008625.\n\n\nVaroquaux N, Purdom E. A pipeline to analyse time-course gene expression data. F1000Research 2020; 9. doi:10.12688/f1000research.27262.1.\n\n\nCole MB, Risso D, Wagner A, DeTomaso D, Ngai J, Purdom E et al. Performance Assessment and Selection of Normalization Procedures for Single-Cell RNA-Seq. Cell Systems 2019; 8: 315–328.e8.\n\n\nEl Karoui N, Purdom E. The non-parametric bootstrap and spectral analysis in moderate and high-dimension. In: Chaudhuri K, Sugiyama M (eds). Proceedings of the twenty-second international conference on artificial intelligence and statistics. PMLR, 2019, pp 2115–2124.\n\n\nGong B, Purdom E. MethCP: Differentially methylated region detection with change point models. In: Cowen LJ (ed). Research in computational molecular biology. Springer International Publishing: Cham, 2019, pp 68–84.\n\n\nEl Karoui N, Purdom E. Can we trust the bootstrap in high-dimensions? The case of linear models. Journal of Machine Learning Research 2018; 19: 1–66.\n\n\nRisso D, Purvis L, Fletcher RB, Das D, Ngai J, Dudoit S et al. clusterExperiment and RSEC: A Bioconductor package and framework for clustering of single-cell and other large gene expression datasets. PLoS Computational Biology 2018; 14: 1–16.\n\n\nStreet K, Risso D, Fletcher RB, Das D, Ngai J, Yosef N et al. Slingshot: Cell lineage and pseudotime inference for single-cell transcriptomics. BMC Genomics 2018; 19: 477.\n\n\nJohnson M, Purdom E. Clustering of mRNA-Seq data based on alternative splicing patterns. Biostatistics 2017; 18: 295–307.\n\n\nPerraudeau F, Risso D, Street K, Purdom E, Dudoit S. Bioconductor workflow for single-cell RNA sequencing: Normalization, dimensionality reduction, clustering, and lineage inference. F1000Research 2017; 6. doi:10.12688/f1000research.12122.1.\n\n\nRuddy S, Johnson M, Purdom E. Shrinkage of dispersion parameters in the binomial family, with application to differential exon skipping. Annals of Applied Statistics 2016; 10. doi:10.1214/15-AOAS871.\n\n\nPurdom E, Ho C, Grasso CS, Quist MJ, Cho RJ, Spellman P et al. Methods and challenges in timing chromosomal abnormalities within cancer samples. Bioinformatics 2013; 29: 3113–3120.\n\n\nPurdom E. Annotation-free estimates of gene-expression from mRNA-Seq. Department of Statistics, UC Berkeley, 2012http://statistics.berkeley.edu/tech-reports/825.\n\n\nPurdom E. Analysis of a data matrix and a graph: Metagenomic data and the phylogenetic tree. Annals of Applied Statistics 2011; 5: 2326–2358.\n\n\nWang XV, Verhaak RGW, Purdom E, Spellman PT, Speed TP. Unifying gene expression measures from multiple platforms using factor analysis. PLoS ONE 2011; 6: e17691.\n\n\nBullard JH, Purdom E, Hansen KD, Dudoit S. Evaluation of statistical methods for normalization and differential expression in mRNA-Seq experiments. BMC bioinformatics 2010; 11: 94.\n\n\nPurdom E, Simpson KM, Robinson MD, Conboy JG, Lapuk AV, Speed TP. FIRMA: A method for detection of alternative splicing from exon array data. Bioinformatics 2008; 24: 1707–1714.\n\n\nPurdom E, Holmes SP. Error distribution for gene expression data. Statistical applications in genetics and molecular biology 2005; 4: Article16."
+  },
+  {
+    "objectID": "bibfiles/autopublications.html#applied-and-collaborative",
+    "href": "bibfiles/autopublications.html#applied-and-collaborative",
+    "title": "Publications",
+    "section": "Applied and Collaborative",
+    "text": "Applied and Collaborative\n\n\nChen P, Yu Q, Wang C, Montoya L, West PT, Xu L et al. Holo-omics disentangle drought response and biotic interactions among plant, endophyte and pathogen. New Phytologist 2025; 246: 2702–2717.\n\n\nCole B, Zhang W, Shi J, Wang H, Baker C, Varoquaux N et al. Multi-season analysis reveals hundreds of drought-responsive genes in sorghum. bioRxiv. 2025. doi:10.1101/2025.06.27.662006.\n\n\nWu D, Hailer AA, Wang S, Yuan M, Chan J, Kurdi AE et al. A single-cell atlas of IL-23 inhibition in cutaneous psoriasis distinguishes clinical response. Science Immunology 2024; 9: eadi2848.\n\n\nCaddell DF, Pettinga D, Louie K, Bowen BP, Sievert JA, Hollingsworth J et al. Drought shifts sorghum root metabolite and microbiome profiles and enriches for pipecolic acid. Phytobiomes Journal 2023; 7: 449–463.\n\n\nGao C, Courty P-E, Varoquaux N, Cole B, Montoya L, Xu L et al. Successional adaptive strategies revealed by correlating arbuscular mycorrhizal fungal abundance with host plant gene expression. Molecular Ecology 2023; 32: 2674–2687.\n\n\nVan den Berge K, Chou H-J, Kunda D, Risso D, Street K, Purdom E et al. A latent activated olfactory stem cell state revealed by single cell transcriptomic and epigenomic profiling. bioRxiv. 2023. doi:10.1101/2023.10.26.564041.\n\n\nCook CP, Taylor M, Liu Y, Schmidt R, Sedgewick A, Kim E et al. A single-cell transcriptional gradient in human cutaneous memory t cells restricts Th17/Tc17 identity. Cell Reports Medicine 2022; 3. doi:10.1016/j.xcrm.2022.100715.\n\n\nGao C, Xu L, Montoya L, Madera M, Hollingsworth J, Chen L et al. Co-occurrence networks reveal more complexity than community composition in resistance and resilience of microbial communities. Nature Communications 2022; 13: 3867.\n\n\nLiu Y, Wang H, Cook C, Taylor MA, North JP, Hailer A et al. Defining patient-level molecular heterogeneity in psoriasis vulgaris based on single-cell transcriptomics. Frontiers in Immunology 2022; 13. doi:10.3389/fimmu.2022.842651.\n\n\nLiu Y, Wang H, Taylor M, Cook C, Martı́nez-Berdeja A, North JP et al. Classification of human chronic inflammatory skin disease based on single-cell immune profiling. Science Immunology 2022; 7: eabl9165.\n\n\nBRAIN Initiative Cell Census Network (BICCN). A multimodal cell census and atlas of the mammalian primary motor cortex. Nature 2021; 598: 86–102.\n\n\nScavuzzo-Duggan T, Varoquaux N, Madera M, Vogel JP, Dahlberg J, Hutmacher R et al. Cell wall compositions of sorghum bicolor leaves and roots remain relatively constant under drought conditions. Frontiers in Plant Science 2021; 12. doi:10.3389/fpls.2021.747225.\n\n\nXu L, Dong Z, Chiniquy D, Pierroz G, Deng S, Gao C et al. Genome-resolved metagenomics reveals role of iron metabolism in drought-induced rhizosphere microbiome dynamics. Nature Communications 2021; 12: 3209.\n\n\nYao Z, Liu H, Xie F, Fischer S, Adkins RS, Aldridge AI et al. A transcriptomic and epigenomic cell atlas of the mouse primary motor cortex. Nature 2021; 598: 103–110.\n\n\nBrann DH, Tsukahara T, Weinreb C, Lipovsek M, Van Den Berge K, Gong B et al. Non-neuronal expression of SARS-CoV-2 entry genes in the olfactory system suggests mechanisms underlying COVID-19-associated anosmia. Science Advances 2020; 6: 1–20.\n\n\nGao C, Montoya L, Xu L, Madera M, Hollingsworth J, Purdom E et al. Fungal community assembly in drought-stressed sorghum shows stochasticity, selection, and universal ecological dynamics. Nature Communications 2020; 11: 34.\n\n\nGao C, Montoya L, Xu L, Madera M, Hollingsworth J, Purdom E et al. Strong succession in arbuscular mycorrhizal fungal communities. ISME Journal 2019; 13. doi:10.1038/s41396-018-0264-0.\n\n\nHarirchian P, Lee J, Hilz S, Sedgewick AJ, Perez White BE, Kesling MJ et al. A20 and ABIN1 Suppression of a Keratinocyte Inflammatory Program with a Shared Single-Cell Expression Signature in Diverse Human Rashes. Journal of Investigative Dermatology 2019; 139: 1264–1273.\n\n\nVaroquaux N, Cole B, Gao C, Pierroz G, Baker CR, Patel D et al. Transcriptomic analysis of field-droughted sorghum from seedling to maturity reveals biotic and metabolic responses. Proceedings of the National Academy of Sciences of the United States of America 2019; 116: 27124–27132.\n\n\nCheng JB, Sedgewick AJ, Finnegan AI, Harirchian P, Lee J, Kwon S et al. Transcriptional Programming of Normal and Inflamed Human Epidermis at Single-Cell Resolution. Cell Reports 2018; 25: 871–883.\n\n\nCho RJ, Alexandrov LB, Den Breems NY, Atanasova VS, Farshchian M, Purdom E et al. APOBEC mutation drives early-onset squamous cell carcinomas in recessive dystrophic epidermolysis bullosa. Science Translational Medicine 2018; 10: 1–12.\n\n\nFletcher RB, Das D, Gadye L, Street KN, Baudhuin A, Wagner A et al. Deconstructing Olfactory Stem Cell Trajectories at Single-Cell Resolution. Cell Stem Cell 2017; 20: 817–830.e8.\n\n\nGadye L, Das D, Sanchez MA, Street K, Baudhuin A, Wagner A et al. Injury Activates Transient Olfactory Stem Cell States with Diverse Lineage Capacities. Cell Stem Cell 2017; 21: 775–790.e9.\n\n\nGoin DE, Smed MK, Pachter L, Purdom E, Nelson JL, Kjærgaard H et al. Pregnancy-induced gene expression changes in vivo among women with rheumatoid arthritis: A pilot study. Arthritis Research and Therapy 2017; 19. doi:10.1186/s13075-017-1312-2.\n\n\nNaylor D, Degraaf S, Purdom E, Coleman-Derr D. Drought and host selection influence bacterial community dynamics in the grass root microbiome. ISME Journal 2017; 11. doi:10.1038/ismej.2017.118.\n\n\nSanborn JZ, Chung J, Purdom E, Wang NJ, Kakavand H, Wilmott JS et al. Phylogenetic analyses of melanoma reveal complex patterns of metastatic dissemination. Proceedings of the National Academy of Sciences of the United States of America 2015; 112. doi:10.1073/pnas.1508074112.\n\n\nZheng CL, Wang NJ, Chung J, Moslehi H, Sanborn JZ, Hur JS et al. Transcription Restores DNA Repair to Heterochromatin, Determining Regional Mutation Rates in Cancer Genomes. Cell Reports 2014; 9: 1228–1234.\n\n\nPurdom E, Restall C, Busuttil RA, Schluter H, Boussioutas A, Thompson EW et al. Determining epithelial contribution to in vivo mesenchymal tumour expression signature using species-specific microarray profiling analysis of xenografts. Genetics Research 2013; 95. doi:10.1017/S0016672313000013.\n\n\nCouvillion MT, Bounova G, Purdom E, Speed TP, Collins K. A Tetrahymena Piwi Bound to Mature tRNA 3’ Fragments Activates the Exonuclease Xrn2 for RNA Processing in the Nucleus. Molecular cell 2012; 48: 509–520.\n\n\nHeiser LM, Sadanandam A, Kuo W-L, Benz SC, Goldstein TC, Ng S et al. Subtype and pathway specific responses to anticancer compounds in breast cancer. Proceedings of the National Academy of Sciences of the United States of America 2012; 109. doi:10.1073/pnas.1018854108.\n\n\nDurinck S, Ho C, Wang NJ, Liao W, Jakkula LR, Collisson EA et al. Timing chromosomal abnormalities using mutation data. Genome Biology 2011; 12: P39.\n\n\nDurinck S, Ho C, Wang NJ, Liao W, Jakkula LR, Collisson EA et al. Temporal Dissection of Tumorigenesis in Primary Cancers. Cancer Discovery 2011; 1: 137–143.\n\n\nThe Cancer Genome Atlas Research Network. Integrated genomic analyses of ovarian carcinoma. Nature 2011; 474. doi:10.1038/nature10166.\n\n\nLapuk A, Marr H, Jakkula L, Pedro H, Bhattacharya S, Purdom E et al. Exon-Level Microarray Analyses Identify Alternative Splicing Programs in Breast Cancer. Molecular Cancer Research 2010; 8: 961–74.\n\n\nVerhaak RGW, Hoadley KA, Purdom E, Wang V, Qi Y, Wilkerson MD et al. Integrated genomic analysis identifies clinically relevant subtypes of glioblastoma characterized by abnormalities in PDGFRA, IDH1, EGFR, and NF1. Cancer Cell 2010; 17: 98–110.\n\n\nThe Cancer Genome Atlas Research Network. Comprehensive genomic characterization defines human glioblastoma genes and core pathways. Nature 2008; 455. doi:10.1038/nature07385.\n\n\nBik EM, Eckburg PB, Gill SR, Nelson KE, Purdom EA, Francois F et al. Molecular analysis of the bacterial microbiota in the human stomach. Proceedings of the National Academy of Sciences of the United States of America 2006; 103. doi:10.1073/pnas.0506655103.\n\n\nEckburg PB, Bik EM, Bernstein CN, Purdom E, Dethlefsen L, Sargent M et al. Diversity of the human intestinal microbial flora. Science 2005; 308: 1635–8.\n\n\nXu T, Shu C-T, Purdom E, Dang D, Ilsley D, Guo Y et al. Microarray analysis reveals differences in gene expression of circulating CD8(+) T cells in melanoma patients and healthy donors. Cancer Research 2004; 64: 3661–3667."
+  },
+  {
+    "objectID": "bibfiles/autopublications.html#booksreviews",
+    "href": "bibfiles/autopublications.html#booksreviews",
+    "title": "Publications",
+    "section": "Books/Reviews",
+    "text": "Books/Reviews\n\n\nPurdom E, Mukherjee S. Transcriptomic Technologies and Statistical Data Analysis. In: Handbook of Statistical Systems Biology. Wiley Online Library, 2011, pp 133–162.\n\n\nPurdom E. Multivariate Kernel Methods in the Analysis of Graphical Structures. 2006.\n\n\nPurdom E. Statistical methods for data science. https://epurdom.github.io/Stat131A/book/index.html."
+  },
+  {
+    "objectID": "bibfiles/autopublications.html#related-software",
+    "href": "bibfiles/autopublications.html#related-software",
+    "title": "Publications",
+    "section": "Related Software",
+    "text": "Related Software\n\nCobolt: Joint analysis of multimodal single-cell sequencing data (python package available on Github)\nmoanin: An R Package for Time Course RNASeq Data Analysis\n(available on Bioconductor)\nmbkmeans: Mini-batch K-means Clustering for Single-Cell RNA-seq (available on Bioconductor)\nDune: Improving replicability in single-cell RNA-Seq cell type discovery (available on Bioconductor)\nmethCP: An R package for Differentially Methylated Region Detection by Boying Gong (available on Github)\nSlingshot: Lineage Inference for Single-cell Data by Kelly Street (available on Bioconductor)\nclusterExperiment : a package for clustering of single-cell sequencing data and other high-throughput experiments with large numbers of samples by Elizabeth Purdom and Davide Risso (Available as a bioconductor package and also available on github)\nDoubleExpSeq: Differential Exon Usage Test for RNA-Seq data via Empirical Bayes Shrinkage of the Dispersion Parameter by Sean Ruddy (R package, available on CRAN) * cancerTiming: Estimation of temporal ordering of cancer abnormalities. by Elizabeth Purdom (R package, available on CRAN and GitHub )\nFIRMA available in the R package aroma.affymetrix, by Elizabeth Purdom (available on www.aroma-project.org)"
+  },
+  {
+    "objectID": "computingGuidePages/computingGuide.html",
+    "href": "computingGuidePages/computingGuide.html",
+    "title": "Computing in Purdom Group",
+    "section": "",
+    "text": "This is a broad overview of some of principles in our group. I mantain an internal Google Doc with specific instructions on how to get setup on our servers specific to the SCF clusters. New members in my group should ask me for access to that file.\nFor help with parallel computing and using the cluster on SCF see their help pages (in particular the description of the cluster servers and the workshops and tutorials)."
+  },
+  {
+    "objectID": "computingGuidePages/computingGuide.html#general-principles",
+    "href": "computingGuidePages/computingGuide.html#general-principles",
+    "title": "Computing in Purdom Group",
+    "section": "General Principles",
+    "text": "General Principles\nHow I like my students to set up their work:\n\nI like to have a project account that we can both access on the SCF rather than storing work on your local SCF machines. This makes it easier to share, create git repositories, etc. I also can ask for significant space allotments for these projects that you won’t have on your account. Also after students move on, I still have the account!\nEveryone in my group should be using GitHub for version tracking of our code and paper writting. This allows us to work on the same files and not worry about writing over each other’s work (much better than Dropbox). This is primarily for text files (.tex, .Rmd, .R, .py, etc). Do not include a lot of binary files (.pdf, .rdata, etc) on git unless they are fairly ‘permanent’ results needed for long term (like pdfs needed by Latex paper, final versions of a paper, etc.). In particular, don’t put the compiled .pdf of Latex or Knitr files or any intermediate files like .aux, .md, etc.; they should be able to be created locally and they are always getting overwritten making a mess of the git repository for no reason.\n\nPlease continually commit your changes to git – not just when I ask to see something. It is much better to have lots of small changes commited than a giant change every month. Please don’t be worried that you will ‘mess up’ the repository. That’s the point of git – it’s pretty hard to erase changes permanently.\nI want my students to use Knitr to create reports, papers, and thesis. This makes sure that the R code is there for making the plots, etc. and that I can tweak the plotting code as I want. There are likely to be extensive analysis that takes a lot of time and probably the cluster to run. I don’t expect that to be in an omnibus knitr file. Rather, get meaningful, compact summaries of the results of your simulations or extensive data analysis/processing that can be the starting point of the analysis you want to show in the writeup. And of course, anything that doesn’t take long (e.g. simple data transformations/cleaning of the data, etc.) should be in the knitr file.\n\nIf you are making a report or presentation do put a copy of this compiled file, but in a different location (e.g. ‘Reports’ folder) so that we can go back to it for reference. This is particularly important if you show something to collaborators, and then later will be tweaking the code. We need a ‘hard’ copy of what you showed them – and this also includes the important individual pictures, not just the pdf/html report. This folder can be in a Google drive folder rather than github.\nAlways close your R session at the end of each day (without saving your session). If it will take you longer than 5 minutes to get back where you were by reruning your code you should save some intermediate files (and have the corresponding code that you can run in BATCH mode to recreate those intermediate files). If you can’t get back to where you were because you did something interactively, then its good to discover that right away and not after a week of work.\nIt’s better to have a .txt files for your intermediate and final results, rather than .rdata files, except for rare exceptions where what you are saving is a complex R object. This will make the results more transferable and force you to create nice headers and identification for your files, rather than relying on multiple objects that link up. Some R objects are too useful to break apart (e.g. the result of lm)."
+  },
+  {
+    "objectID": "computingGuidePages/computingGuide.html#specific-resources",
+    "href": "computingGuidePages/computingGuide.html#specific-resources",
+    "title": "Computing in Purdom Group",
+    "section": "Specific Resources",
+    "text": "Specific Resources\nI give some brief help on these tools below (these are more a compilation of useful tricks than tutorials)\n\nGit\nKnitr / Rmarkdown\nR Tutorials and Help\nUnix"
+  },
+  {
+    "objectID": "computingGuidePages/unixtips.html",
+    "href": "computingGuidePages/unixtips.html",
+    "title": "Unix",
+    "section": "",
+    "text": "You will have to do a lot of work on the servers and will need to figure out unix commands. A few useful things to learn\n\nscreen: This allows you to do multiple ‘windows’ on unix. If you are running R interactively, you probably want to do it via screen, because it allows you to exit the R session, go back to the unix terminal, and then re-enter R – and from any connection. You can log-off at the department and log-back on at home and still re-enter your R session. However, the rule above still applied. Don’t keep a R session running longer than a day without really good reason.\n\nmakefiles: This is very useful for automating a series of steps. For example, I always create a make file that will compile my knitr file or latex file. For extensive simulations or processing of data, especially that have dependencies (if file X updates, you need to rerun command A, but otherwise don’t), you can code in the dependencies in makefile, and make will only rerun if neeed. Knitr caching does this to some degree, but I find it much trickier – I always wind up ‘forcing’ it to rerun something or being frustrated that it reran something I didn’t think changed. Snakemake is a more recent tool that helps make it easy to create make workflows"
+  }
+]

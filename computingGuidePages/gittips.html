@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Git Repositories – Elizabeth Purdom</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-bd2875edac94a5407211a1f8c493ca8e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://siteimproveanalytics.com/js/siteanalyze_6294756.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../research.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bibfiles/autopublications.html"> 
+<span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../biography.html"> 
+<span class="menu-text">Curriculum vitae</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../people.html"> 
+<span class="menu-text">Research Group</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#generally" id="toc-generally" class="nav-link active" data-scroll-target="#generally">Generally</a></li>
+  <li><a href="#getting-started-minimal-you-need-to-learn" id="toc-getting-started-minimal-you-need-to-learn" class="nav-link" data-scroll-target="#getting-started-minimal-you-need-to-learn">Getting Started (Minimal you need to learn)</a>
+  <ul class="collapse">
+  <li><a href="#make-local-git-repository" id="toc-make-local-git-repository" class="nav-link" data-scroll-target="#make-local-git-repository">Make Local Git repository:</a></li>
+  <li><a href="#working-on-your-local-git-repository" id="toc-working-on-your-local-git-repository" class="nav-link" data-scroll-target="#working-on-your-local-git-repository">Working on your local git repository</a></li>
+  <li><a href="#connect-to-existing-central-repository" id="toc-connect-to-existing-central-repository" class="nav-link" data-scroll-target="#connect-to-existing-central-repository">Connect to existing central repository:</a></li>
+  <li><a href="#syncing-with-the-central-repository-on-scf-server" id="toc-syncing-with-the-central-repository-on-scf-server" class="nav-link" data-scroll-target="#syncing-with-the-central-repository-on-scf-server">Syncing with the central repository on SCF Server</a></li>
+  </ul></li>
+  <li><a href="#setup-a-central-git-on-scf-server" id="toc-setup-a-central-git-on-scf-server" class="nav-link" data-scroll-target="#setup-a-central-git-on-scf-server">Setup a Central Git on SCF Server</a></li>
+  <li><a href="#mergingfetching" id="toc-mergingfetching" class="nav-link" data-scroll-target="#mergingfetching">Merging/Fetching</a>
+  <ul class="collapse">
+  <li><a href="#resolving-conflicts" id="toc-resolving-conflicts" class="nav-link" data-scroll-target="#resolving-conflicts">Resolving conflicts</a></li>
+  <li><a href="#fetch-then-merge" id="toc-fetch-then-merge" class="nav-link" data-scroll-target="#fetch-then-merge">Fetch then merge</a></li>
+  </ul></li>
+  <li><a href="#revertingundoing" id="toc-revertingundoing" class="nav-link" data-scroll-target="#revertingundoing">Reverting/Undoing</a>
+  <ul class="collapse">
+  <li><a href="#finding-commits-with-log" id="toc-finding-commits-with-log" class="nav-link" data-scroll-target="#finding-commits-with-log">Finding commits with <code>log</code></a></li>
+  <li><a href="#undo-changes-since-your-last-commit" id="toc-undo-changes-since-your-last-commit" class="nav-link" data-scroll-target="#undo-changes-since-your-last-commit">Undo changes since your last commit</a></li>
+  <li><a href="#undo-changes-on-a-single-file" id="toc-undo-changes-on-a-single-file" class="nav-link" data-scroll-target="#undo-changes-on-a-single-file">Undo changes on a single file</a></li>
+  </ul></li>
+  <li><a href="#deleting-files" id="toc-deleting-files" class="nav-link" data-scroll-target="#deleting-files">Deleting files</a>
+  <ul class="collapse">
+  <li><a href="#deleting-files-that-arent-part-of-the-repos" id="toc-deleting-files-that-arent-part-of-the-repos" class="nav-link" data-scroll-target="#deleting-files-that-arent-part-of-the-repos">Deleting files that aren’t part of the repos</a></li>
+  </ul></li>
+  <li><a href="#other-useful-tips" id="toc-other-useful-tips" class="nav-link" data-scroll-target="#other-useful-tips">Other useful tips</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Git Repositories</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-left">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="generally" class="level2">
+<h2 class="anchored" data-anchor-id="generally">Generally</h2>
+<ul>
+<li><p>I would suggest using something like SourceTree to work with git repositories (and if you are managing a package use the built-in functionality in SourceTree to use gitflow for branches to separate development and public releases).</p></li>
+<li><p>This is a link to a pretty good <a href="http://rypress.com/tutorials/git/index">tutorial</a> and the <a href="https://git-scm.com/book/en/v1">Git Pro book</a></p>
+<p></p></li>
+<li><p>See the following article about git and GitHub to think how to integrate git into your workflow: <a href="http://biorxiv.org/content/early/2016/04/15/048744">Ten Simple Rules for Taking Advantage of git and GitHub</a></p></li>
+<li><p>The following <a href="http://mislav.uniqpath.com/2010/07/git-tips%20/%3Ehttp://mislav.uniqpath.com/2010/07/git-tips/">website</a> has useful Git tips</p></li>
+</ul>
+<p>What follows are basically just list of useful commands beyond the basic that I’ve compiled in one quick place. You should look at tutorials to understand what these are doing.</p>
+</section>
+<section id="getting-started-minimal-you-need-to-learn" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-minimal-you-need-to-learn">Getting Started (Minimal you need to learn)</h2>
+<section id="make-local-git-repository" class="level3">
+<h3 class="anchored" data-anchor-id="make-local-git-repository">Make Local Git repository:</h3>
+<p>Note that if you are making a brand new repository and plan to connect up to a central repository, it’s better to just clone it, rather than following these instructions. This is mainly for making a repository from an existing directory. * Inside the directory where you want the repository type</p>
+<pre><code>&gt; git init</code></pre>
+<p>Add files to the git with</p>
+<pre><code>&gt; git add filename</code></pre>
+<p>You can use wild cards</p>
+<pre><code>&gt; git add *.R</code></pre>
+<p>or add everything with <code>*</code></p>
+<pre><code>&gt; git add *</code></pre>
+<p>However, I do not recommend this, because it will add all kinds of files you probably do not want.</p>
+<p>Commit files to be versioned with</p>
+<pre><code>git commit -a -m "Your message here"</code></pre>
+</section>
+<section id="working-on-your-local-git-repository" class="level3">
+<h3 class="anchored" data-anchor-id="working-on-your-local-git-repository">Working on your local git repository</h3>
+<ul>
+<li><p>Once you have your repository set up locally, it will keep track locally of the differences in each file, but only of those files you request to be tracked, and only when you request it. So you need to ‘add’ files and ‘commit’ changes.</p></li>
+<li><p>Check the status of files that have been modified, etc:</p></li>
+</ul>
+<pre><code>git status</code></pre>
+<ul>
+<li>To add files to be tracked (or to add files whose modifications should be included in the next git if already being tracked):</li>
+</ul>
+<pre><code>git add filename</code></pre>
+<ul>
+<li>To commit changes to files to be tracked:</li>
+</ul>
+<pre><code>git commit -a -m "my message"</code></pre>
+<p>The <code>-a</code> says to add to the commit all modifications of files currently being tracked by git. If you forget this option, probably none of your changes will be committed; this is a common reason students think they have pushed their changes so I can see them, but in fact aren’t showing up on the other end. <code>-a</code> will not add <em>new</em> files, however. You must do that manually with <code>git add</code>.</p>
+<p>If you forget the <code>-m</code> in the <code>git commit</code> command, a screen will come up for you to enter your message (usually in VIM which is a pain.) * The above commands only add and commit your files to your local version control. To share it on the central repository, you have to make a connection to the central repository and then sync your changes to the central repository</p>
+</section>
+<section id="connect-to-existing-central-repository" class="level3">
+<h3 class="anchored" data-anchor-id="connect-to-existing-central-repository">Connect to existing central repository:</h3>
+<ul>
+<li><strong>Make New Local Git repository from existing Remote repository (via SSH)</strong> In the location you want the new repository to be created (i.e.&nbsp;‘cloned’) type</li>
+</ul>
+<pre><code>git clone ssh://addressOfServerDirectory</code></pre>
+<p>For example:</p>
+<pre><code>git clone ssh://isoform@beren.berkeley.edu/accounts/projects/isoform/gitRepos/projectName</code></pre>
+<ul>
+<li><strong>Connect Existing Local Git repository with Remote</strong> (see also this online <a href="http://crashingdaily.wordpress.com/2009/09/02/initing-a-new-remote-git-repository-with-existing-files">tutorial</a>) Inside the directory that has the git repository, type</li>
+</ul>
+<pre><code>git remote add origin ssh://addressOfServer</code></pre>
+<p>For example</p>
+<pre><code>git remote add origin ssh://isoform@beren.berkeley.edu/accounts/projects/isoform/gitRepos/projectName</code></pre>
+<ul>
+<li>To check what are your remote connections:</li>
+</ul>
+<pre><code>git remote -v</code></pre>
+<ul>
+<li>To change the url of a remote:</li>
+</ul>
+<pre><code>git remote set-url origin  ssh://addressOfServer</code></pre>
+</section>
+<section id="syncing-with-the-central-repository-on-scf-server" class="level3">
+<h3 class="anchored" data-anchor-id="syncing-with-the-central-repository-on-scf-server">Syncing with the central repository on SCF Server</h3>
+<p>git will not allow you to add anything that will conflict with what is on the repository (e.g.&nbsp;changes uploaded to the repository by someone else). It forces you to incorporate those changes locally before you inflict them on the rest of the world. Usually this is done automatically by default merging, but sometimes if git can’t resolve the differences between the two versions, you have to manually go and fix the files.</p>
+<p>So generally you need to first ‘commit’ your changes, ‘pull’ from the central repos., if needed, fix any differences and commit them (usually done automatically), then ‘push’ your new (merged) version to the repository.</p>
+<p></p>
+<ol type="1">
+<li>Commit your changes:</li>
+</ol>
+<pre><code>git commit -a -m "My changes"</code></pre>
+<ol start="2" type="1">
+<li>Pull down the commits from the central:</li>
+</ol>
+<pre><code>git pull</code></pre>
+<p>This will automatically result in merging of your work with the online. If there are conflicts between your changes and the remote’s you will have to manually fix them before you can go any further (see merging below) 3. Push your (committed) changes to the central:</p>
+<pre><code>git push</code></pre>
+</section>
+</section>
+<section id="setup-a-central-git-on-scf-server" class="level2">
+<h2 class="anchored" data-anchor-id="setup-a-central-git-on-scf-server">Setup a Central Git on SCF Server</h2>
+<p>We will usually use GitHub for our repos, but occasionally we will want our repos on the SCF server. 1. If there is not a folder in the home directory called <code>gitRepos</code> create it. This is where I like all of the repositories for the account to be saved. 2. Under the folder <code>gitRepos</code>, make a folder for this repository, preferably with the extensions ‘.git’ at the end 3. Inside that folder, initialize the repository by</p>
+<pre><code>git init --bare</code></pre>
+<p>Note that because this is a ‘bare’ repository, this will have no ‘files’ that you can look at but only the diff files of changes at each push. This keeps anyone from accidently trying to work off of this directory.</p>
+<p>It can frequently be useful to have a copy on the SCF account that you <em>can</em> work off of and run scripts from, etc. You should do this by cloning a copy of the central repository to an appropriate directory on the account (not under <code>gitRepos</code>!). This local copy will need to push and pull to the repository just like you would from your computer.</p>
+</section>
+<section id="mergingfetching" class="level2">
+<h2 class="anchored" data-anchor-id="mergingfetching">Merging/Fetching</h2>
+<p>(see also <a href="http://git-scm.com/docs/git-merge">documentation</a>):</p>
+<p>When you pull from the repos, and there are changes on the repos that are not on your local commit, git will try to merge those changes into your local commit. <code>pull</code> is actually two steps: <code>fetch</code> and <code>merge</code>, and <code>merge</code> has different strategies for merging, including <code>ours</code> and <code>theirs</code> that defines where the priority should be given. We will discuss below running those commands separately so you can have more control over merging, and be able to anticipate what will happen before merging.</p>
+<p>git will try to resolve any conflicts from merging. If there is a conflict it can’t resolve, they you have to manually solve them before you can push any changes (i.e.&nbsp;you can’t add something that will break things for other people).</p>
+<section id="resolving-conflicts" class="level3">
+<h3 class="anchored" data-anchor-id="resolving-conflicts">Resolving conflicts</h3>
+<p>Usually the best way to resolve conflicts is to use</p>
+<pre><code>git mergetool</code></pre>
+<p>This should be done <em>after</em> you’ve been notified there is a conflict. This command will launch a graphical tool to compare and choose what you want to keep. (you may have to set what the graphical tool should be; Mac has <code>opendiff</code> if you’ve installed XCode. On Windows you will probably need to download a tool.)</p>
+<p>For small differences you can also just open up the files that are affected (<code>git status</code> will tell you).</p>
+<p>You can also undo the merge (at least for committed files, see documentation) with</p>
+<pre><code>git merge --abort origin/master</code></pre>
+<p>This is a short term fix – you will need to eventually be able to merge with master – but you might, for example, decide to push your changes into a separate branch and deal with the conflicts there.</p>
+</section>
+<section id="fetch-then-merge" class="level3">
+<h3 class="anchored" data-anchor-id="fetch-then-merge">Fetch then merge</h3>
+<p>If you are combining your information with another via pull then git will first “fetch” changes from the central repos and them “merge” together.</p>
+<p>It can be better to do these two steps separately if there are major changes between them. (<a href="http://longair.net/blog/2009/04/16/git-fetch-and-merge">post on why better</a>)</p>
+<pre><code>git fetch
+git merge origin/master</code></pre>
+<p><code>origin/master</code> refers to the local copy of origin that you just fetched.</p>
+<p>The main reason these two separate steps can be safer, is that you can look and see what will happen and change options to the two steps. After you’ve gotten use to using git via <code>pull</code>, I would encourage you to try this way and the techniques below and be careful before you use automatic merging. I have “lost” significant edits via merging – of course I was able to recover them because they were all on old commits!</p>
+<p>If you do <code>git fetch</code>, you can then check out what would happen if you merge <em>before</em> you merge.</p>
+<p>For example after running <code>fetch</code>,</p>
+<pre><code>git diff --name-status origin/master</code></pre>
+<p>gives you a list of each file that would change.</p>
+<p>A command called <code>difftool</code> allows you to look, file-by-file, the differences between the changes that would occur on each file:</p>
+<pre><code>git difftool origin/master</code></pre>
+<p>You can also do <code>difftool</code> with just a single file,</p>
+<pre><code>git difftool origin/master path/to/file</code></pre>
+<p><code>difftool</code> is just the gui version of diff command which gives you text that you can also scroll through on your screen. See <code>rholmes</code> response to <a href="http://stackoverflow.com/questions/4944376/how-to-check-real-git-diff-before-merging-from-remote-branch">this question</a> for a summary as to how different syntax is used by diff.</p>
+<p>Similarly there are options for the merge. By default, the results of <code>merge</code> are ‘committed’. The program needs a merge message, which can be given with the option <code>-m</code> so it doesn’t open an edit screen. You can do a merge without committing</p>
+<pre><code>git merge --no-commit origin/master</code></pre>
+<p>This allows you to look at the changes (e.g.&nbsp;with a <code>difftool</code> between <code>HEAD</code> and what’s in your local directory, see above). If you’re okay with them, you can then commit the merge like normal.</p>
+<p>Merge also has different strategies for merging, including <code>ours</code> and <code>theirs</code> that defines where the priority should be given.</p>
+</section>
+</section>
+<section id="revertingundoing" class="level2">
+<h2 class="anchored" data-anchor-id="revertingundoing">Reverting/Undoing</h2>
+<p>If you want to look at an old commit, you want the checkout command (see good tutorial <a href="https://www.atlassian.com/git/tutorials/undoing-changes/git-checkout">here</a>)</p>
+<pre><code>git checkout XXX</code></pre>
+<p>where <code>XXX</code> is the name of the commit. You should make sure that any of your changes you’ve made have been committed or you will lose them. <code>checkout</code> brings then entire state of your commit at that time into your directory (and makes your current commit go away).</p>
+<p>To get back to where you were, you type,</p>
+<pre><code>git checkout master</code></pre>
+<p><code>checkout</code> is good for looking at old commits and figuring out where what you want is (<code>checkout</code> is also for moving between branches).</p>
+<p>But if you want to revert to an old commit or start making changes based on an old commit, this isn’t a good way to do it (if you accidentally do this, you’re in a “detached HEAD state” and see this <a href="http://git-scm.com/docs/git-checkout">help page</a> to see what you should do). The better way to get rid of changes and revert is <code>git revert</code>. To work simultaneously on both, create a new branch.</p>
+<p></p>
+<section id="finding-commits-with-log" class="level3">
+<h3 class="anchored" data-anchor-id="finding-commits-with-log">Finding commits with <code>log</code></h3>
+<p>How do you find the name of a commit? You usually use the <code>log</code> command like follows:</p>
+<pre><code>&gt; git log</code></pre>
+<p>This spits out the information from each commit, that will be a list of entries for each commit that look like:</p>
+<pre><code>commit 682d89ca9e04d8c274d2d89419f9bb8a1b142c5a
+Author: Elizabeth Purdom &lt;epurdom@stat.berkeley.edu&gt;
+Date:   Fri Aug 7 17:10:55 2015 -0700
+
+  add new options for function</code></pre>
+<p>The name of the commit is the long string of numbers/letters ( <code>682d89ca9e04d8c274d2d89419f9bb8a1b142c5a</code>), and the text underneather are the comments you provided at the commit.</p>
+<p>To revert to a previous commit you don’t usually have to type the whole name when you checkout (just enough of the beginning to uniquely identify it).</p>
+<p>This is when you discover the utility (or not) of the comments you made at each change. Using a tool like SourceTree can help a lot for looking at old commits.</p>
+<p>You can also get the history of just a specific file:</p>
+<pre><code>git log -- filename</code></pre>
+<p><code>log</code> has a lot of options for how to format the output (see useful description <a href="https://git-scm.com/book/en/v1/Git-Basics-Viewing-the-Commit-History">here</a>). For example try the following commands:</p>
+<pre><code>git log --pretty=oneline
+git log --stat
+git log --author=epurdom -n=3
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short</code></pre>
+</section>
+<section id="undo-changes-since-your-last-commit" class="level3">
+<h3 class="anchored" data-anchor-id="undo-changes-since-your-last-commit">Undo changes since your last commit</h3>
+<p>(see also this <a href="https://schacon.github.io/gitbook/4_undoing_in_git_-_reset,_checkout_and_revert.html">tutorial</a>)</p>
+<p>Frequently, you want to undo everything you’ve done and go back to your last commit. This happens frequently if you use a synchronization program for your computer, and as a result you’ve ‘updated’ everything in your git directory, but you don’t want those changes via a standard copy. You want to pull them in properly via a pull from the repository. You also might realize that you didn’t pull down the changes that are on the repos, and rather than dealing with conflicts, you just want to trash anything you’ve done. You can do</p>
+<pre><code>git checkout -- .</code></pre>
+<p>The <code>.</code> just means everything in the directory you’re in (so do it at the top of the git directory to do everything), but it can also be replaced with a specific filename.</p>
+<pre><code>                        You can also do</code></pre>
+<pre><code>git reset --hard HEAD</code></pre>
+<p>to undo all uncommitted changes (note the difference, ‘checkout’ allows you to work on a single file or folder using standard unix abbreviations for files; git reset does everything. This is an in depth <a href="https://git-scm.com/blog/2011/07/11/reset.html">blog</a> on reset).</p>
+</section>
+<section id="undo-changes-on-a-single-file" class="level3">
+<h3 class="anchored" data-anchor-id="undo-changes-on-a-single-file">Undo changes on a single file</h3>
+<p>(see also this <a href="https://www.atlassian.com/git/tutorials/undoing-changes">tutorial</a>) It’s likely you want to get an old version of a single file to get something you lost, etc. If you want to look at a specific file from an old commit,</p>
+<pre><code>git checkout XXX path/to/file</code></pre>
+<p>This is different from checking out an entire commit, because now you’ve pulled just the old version of this specific file in the place of the current version of the file.</p>
+<p>A simple thing to do would be to copy this old file to a new (unversioned) file name, and then get your current version back via</p>
+<pre><code>git checkout master path/to/file</code></pre>
+<p>Then you can compare the two (e.g.&nbsp;using difftool) and make edits to the current version from the old version.</p>
+<p>If you truly want to revert to the old file (or entirely to an old commit) rather than manually pulling in information from an old file, you probably want to use git revert. See <a href="https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting">this tutorial</a> for the difference between checkout, revert, reset, and rebase in undoing changes.</p>
+</section>
+</section>
+<section id="deleting-files" class="level2">
+<h2 class="anchored" data-anchor-id="deleting-files">Deleting files</h2>
+<p>If you delete a tracked file, it will be deleted from the repos. There is a git command that does this:</p>
+<pre><code>git rm myfile</code></pre>
+<p>but even if you delete files in other ways, you will still delete the file from the repos (once you’ve committed the changes). Deleted files can of course be recovered by going to older commits.</p>
+<p>However, <code>git rm</code> has options that might be useful. For example, you can remove a file from the repos without deleting the local copy</p>
+<pre><code>git rm --cached myfile</code></pre>
+<p>Note that keeps <em>your</em> local copy intact, but removes it from being tracked in the commit, effectively deleting it for <em>other users</em>– once they pull your changes, will see their file get deleted (see <a href="http://stackoverflow.com/questions/2604625/git-how-to-remove-file-from-index-without-deleting-files-from-any-repository">stackoverflow question</a>)</p>
+<section id="deleting-files-that-arent-part-of-the-repos" class="level3">
+<h3 class="anchored" data-anchor-id="deleting-files-that-arent-part-of-the-repos">Deleting files that aren’t part of the repos</h3>
+<p>What about if you want to get rid of all files that aren’t a part of the repos? You can use the following command:</p>
+<pre><code>git clean -f -d</code></pre>
+<p>Be very careful, because there’s no undoing these (-f means force and -d means remove directories too).</p>
+<p>A common use case is if you have some files in your laptop that have not been added to the git repos, but in another copy on the server you have added them and pushed them to the repos. If you do a <code>pull</code> on your laptop, you will get an error, because it will want to add those files to your laptop, but you already have untracked files with this same name on your laptop so it will not do it. You won’t be able to pull unless you either a) add and commit your local versions of the file to the repository or b) delete your local versions. Committing your version of the files in this setting will create a conflict (and git doesn’t nicely merge pdf files). But if there are a lot of these files, it can be hard to delete them all. This command will clean the directory of all untracked files.</p>
+</section>
+</section>
+<section id="other-useful-tips" class="level2">
+<h2 class="anchored" data-anchor-id="other-useful-tips">Other useful tips</h2>
+<ul>
+<li>Aliases: this <a href="https://git.wiki.kernel.org/index.php/Aliases">tutorial</a> describes how to do this. It also has a collection of useful aliases. For example</li>
+</ul>
+<pre><code>git config --global alias.hist 'log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'</code></pre>
+<p>creates a (global) git command on your machine (call with ‘git hist’) that makes a nicely formatted output of the log history. * To always commit .R, .m, .Rout files (always executed in top of the directory, so gets everything , see the following <a href="http://stackoverflow.com/questions/957928/is-there-a-way-to-get-the-git-root-directory-in-one-command">link</a></p>
+<p>For example, create a <code>commitx</code> command:</p>
+<pre><code>git config alias.commitx '!git add *.Rout &amp;&amp; git add *.m &amp;&amp; git add *.R &amp;&amp; git commit -a -m'</code></pre>
+<ul>
+<li><strong><code>.gitignore</code> files</strong> Make good use of the <code>.gitignore</code> file so that your <code>git status</code> command doesn’t show a lot of directories or files that you don’t want. And also so you don’t dump annoying files onto the rest of the world when you do git add. There is a <a href="https://github.com/github/gitignore">public repository</a> of ignore files for common scenarios.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/berkeley-stat\.github\.io\/purdom-site\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
