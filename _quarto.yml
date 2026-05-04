@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Elizabeth Purdom"
+  site-url: https://purdom.stat.berkeley.edu
   sidebar: false
   navbar:
     left:
