@@ -5,7 +5,7 @@ title: "Purdom Group"
 ## Joining My Group
 
 -   If you are a *graduate student at UC Berkeley* interested in joining my research group or attending my group meetings, please feel free to contact me.
--   If you are a prospective student, I do not admit students directly into my lab, and you should contact the PhD admissions
+-   If you are a prospective student, I do not admit students directly into my lab, and you should contact the PhD admissions.
 -   [Tips and guidelines for computing practices in my group](computingGuidePages/computingGuide.qmd)
 
 ## Current Graduate Students and Post-Docs
