@@ -5,3 +5,4 @@ Once rendered, the website is at [berkeley-stat.github.io/purdom-site](berkeley-
 * [purdom.stat.berkeley.edu](purdom.stat.berkeley.edu)
 * [stat.berkeley.edu/~epurdom](stat.berkeley.edu/~epurdom)
 
+The `gh-pages` branch needs to have a file CNAME with contents purdom.stat.berkeley.edu . It sometimes gets deleted in which case it won't show on the aliased website.
