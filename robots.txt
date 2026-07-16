@@ -1,1 +1,1 @@
-Sitemap: https://berkeley-stat.github.io/purdom-site/sitemap.xml
+Sitemap: https://purdom.stat.berkeley.edu/sitemap.xml
