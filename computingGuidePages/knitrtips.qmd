@@ -25,22 +25,21 @@ knitr::opts_chunk$set(fig.align="center", cache=TRUE, cache.path = "filename_cac
 * Use `fig.width` and `fig.height` in chunks so that you figures are good
                         spaces, especially if you set `par(mfrow= )` so you don't get squished plots. You can create an
                         object that defines these, so you could change all of them at once.
-```
+```{=r}
 figWidth2Col<-12
 figHeight2Col<-6
 {r MyChunk,fig.width=figWidth2Col,fig.height=figHeight2Col}
 			  par(mfrow=c(1,2))
 			  #code
-
 ```
 * To give numbering to your figures in .html output, see the function
                         `capFig` donated by contributer to [this thread](https://stackoverflow.com/questions/37116632/rmarkdown-html-number-figures)
 * To run knitr at the unix/terminal command line, rather than within R (like R CMD SWEAVE), use Rscript
-```
+```{=r}
 Rscript --vanilla  -e "library(knitr); knit2html('test.Rmd');"
 ```
 Or if your using yaml headers, like in RStudio, you need
-```
+```{=r}
 Rscript --vanilla  -e "library(rmarkdown); render('test.Rmd');"
 ```
 If you get the error
@@ -61,7 +60,7 @@ see this <a
 * Don't set `cache=TRUE` unless you are going to pay attention to
                                 dependencies between your chunks (e.g. using 'dependson'). Otherwise, your changes won't
                                 get really implemented. For example,
-```
+```{=r}
 {r combine}
 #code here
 
@@ -103,7 +102,7 @@ Generally you will not have a giant file with everything you have done, but it i
                                     href=http://yihui.name/knitr/demo/externalization />http://yihui.name/knitr/demo/externalization/</a>).
                                \
                                 Your R code would look like this:
-```
+```{=r}
 ##---- MyFirstChunk
 ...
 				
@@ -113,7 +112,7 @@ Generally you will not have a giant file with everything you have done, but it i
 ```
 
 Then you would pull in the chunks like this
-```
+```{=r}
 {r readR, cache=FALSE}
 knitr::read_chunk('myCode.R')
 
