@@ -20,8 +20,11 @@ UC, Berkeley
 
 ## Contact
 
-Address: 367 Evans Hall #3860, Berkeley, CA 94720\
-Phone: 510-642-6154\
+Address: \
+Department of Statistics\
+3385 Gateway Building\
+2300 Hearst Ave\
+Berkeley, CA 94720-3860\
 Fax: 510-642-7892\
 Email: [epurdom\@stat.berkeley.edu](mailto:epurdom@stat.berkeley.edu)
 :::
